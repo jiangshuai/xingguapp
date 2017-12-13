@@ -1,0 +1,18 @@
+var languagePack = {
+    "title": "VUE前端测试",
+    "signout": "退出",
+    "systemLogin": "系统登录",
+    "userName": "用户名",
+    "password": "密码",
+    "language": "语言",
+    "timeZone": "时区",
+    "chinese": "中文",
+    "english": "英文",
+    "china": "中国",
+    "usa": "美国",
+    "submit": "提交",
+    "reset": "重置",
+    "userNameMessage": "姓名不得为空",
+    "passMessage": "密码不得为空",
+    "WorkBench": "工作台",
+};

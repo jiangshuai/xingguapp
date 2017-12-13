@@ -1,0 +1,77 @@
+.zh-cn{
+    .FileuploadDialog{
+        width: 600px;
+        height: auto;
+        background-color:#fff;
+        position: absolute;
+        z-index: 1000000000;
+        left: 50%;
+        top: 15%;
+        margin-left: -300px;
+        box-shadow: 0px 0px 50px #888888;
+        .close{
+            width: 20px;
+            height: 20px;
+            background-color: red;
+            position: absolute;
+            right: -10px;
+            top: -10px;
+            border-radius: 50%;
+            font-size: 16px;
+            line-height: 17px;
+            text-align: center;
+            color: #fff;
+            cursor: pointer;
+        }
+        .FileItemBox{
+            height: 100%;
+            padding: 10px;
+            .item{
+                font-size: 12px;
+                height: 30px;
+                line-height:30px;
+                .title{
+                    width: 20%;
+                    height: 100%;
+                    float: left;
+                    white-space:nowrap;
+                    overflow:hidden;
+                    text-overflow:ellipsis;
+                    text-align: center;
+                }
+                .percent{
+                    width: 70%;
+                    height: 100%;
+                    float: left;
+                    overflow: hidden;
+                    .percentBox{
+                        width: 95%;
+                        height: 10px;
+                        border-radius: 50px;
+                        margin: 10px auto;
+                        border: 1px burlywood solid;
+                        overflow: hidden;
+                        .progressBar{
+                            background-color: burlywood;
+                            width: 0%;
+                            height: 100%;
+                            transition: width 0.5s;
+                            -moz-transition: width 0.5s;	
+                            -webkit-transition: width 0.5s;
+                            -o-transition: width 0.5s;
+                        }
+                    }
+                }
+                .scheduleValue{
+                    width: 10%;
+                    height: 100%;
+                    float: left;
+                    white-space:nowrap;
+                    overflow:hidden;
+                    text-overflow:ellipsis;
+                    text-align: center;
+                }
+            }
+       }
+   }
+}

@@ -1,0 +1,129 @@
+//reset.less (html标签重定义)
+/*
+html {
+    font-size: 20px;
+}
+
+@media only screen and (min-width: 401px) {
+    html {
+    font-size: 25px !important;
+    }
+}
+
+@media only screen and (min-width: 428px) {
+    html {
+    font-size: 26.75px !important;
+    }
+}
+
+@media only screen and (min-width: 481px) {
+    html {
+    font-size: 30px !important;
+    }
+}
+
+@media only screen and (min-width: 569px) {
+    html {
+    font-size: 35px !important;
+    }
+}
+
+@media only screen and (min-width: 641px) {
+    html {
+    font-size: 40px !important;
+    }
+}
+*/
+@media screen and (min-width:1280px){
+    .FindCustomer {
+        .searchBox {
+            width: 888px;
+        }
+    }
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+em,i{
+    font-style: normal;
+}
+input{
+    outline: 0;
+}
+li {
+    list-style: none;
+}
+
+a {
+    outline: none;
+    &:link {
+        text-decoration: none;
+    }
+    &:visited {
+        text-decoration: none;
+    }
+    &:hover {
+        text-decoration: none;
+    }
+    &:active {
+        text-decoration: none;
+    }
+    &:focus {
+        text-decoration: none;
+    }
+}
+
+p {
+    font-size: 16px;
+}
+
+dl {
+    margin-bottom: 0;
+    dt {
+        font-weight: 400;
+    }
+}
+html,body{
+    height: 100%;
+    width: 100%;
+    overflow-y: hidden;
+}
+body{
+    position: relative;
+    font-size: 14px;
+    font-family: 'Helvetica Neue',Helvetica,'PingFang SC','Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',Arial,sans-serif;
+    -webkit-font-smoothing: antialiased;
+}
+
+
+//修改浏览器默认滚动条样式
+.MXscroll::-webkit-scrollbar-track,//通过指定样式引用
+.rightWindow>div::-webkit-scrollbar-track,//右窗口
+.mainWindow>div::-webkit-scrollbar-track,//主视图
+.el-dialog__wrapper::-webkit-scrollbar-track,//e-ui弹出框
+{
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    border-radius: 10px;
+    background-color: #F5F5F5;
+}
+
+.MXscroll::-webkit-scrollbar,//通过指定样式引用
+.rightWindow>div::-webkit-scrollbar,//右窗口
+.mainWindow>div::-webkit-scrollbar,//主视图
+.el-dialog__wrapper::-webkit-scrollbar//e-ui弹出框
+{
+    width: 5px;
+    background-color: #F5F5F5;
+}
+
+.MXscroll::-webkit-scrollbar-thumb,//通过指定样式引用
+.rightWindow>div::-webkit-scrollbar-thumb,//右窗口
+.mainWindow>div::-webkit-scrollbar-thumb,//主视图
+.el-dialog__wrapper::-webkit-scrollbar//e-ui弹出框
+{
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+    background-color: #555;
+}

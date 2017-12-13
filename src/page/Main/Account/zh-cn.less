@@ -1,0 +1,92 @@
+.zh-cn{
+    /* 找客户相关 */
+    .findCustomer {}
+
+    .findCustomer .findCustomer_account {
+        width: 1200px;
+        background-color: #fff;
+        -webkit-box-shadow: 1px 1px 3px #ccc;
+        -moz-box-shadow: 1px 1px 3px #ccc;
+        box-shadow: 1px 1px 3px #ccc;
+        border-radius: 3px;
+        margin: 50px auto;
+        padding: 30px;
+    }
+
+    .findCustomer .findCustomer_account>label {
+        display: block;
+        position: relative;
+    }
+
+    .findCustomer .findCustomer_account>label>input {
+        width: 100%;
+        height: 40px;
+        line-height: 40px;
+        margin: 10px 0 5px;
+        border-radius: 5px;
+        text-indent: 10px;
+        border:1px solid #999;
+    }
+    .findCustomer .findCustomer_account>label>input:focus{
+        border-color: #008cee;
+    }
+
+    .findCustomer .findCustomer_account>label .box-search-btn {
+        display: inline-block;
+        width: 35px;
+        height: 35px;
+        line-height: 35px;
+        text-align: center;
+        position: absolute;
+        top: 50%;
+        margin-top: -13px;
+        right: 5px;
+        font-size: 20px;
+    }
+
+    .findCustomer .findCustomer_account>label .box-search-btn:hover {
+        color: #008cee;
+        cursor: pointer;
+    }
+
+    .findCustomer .findCustomer_account .searchContent {
+        margin-top: 8px;
+        padding-top: 8px;
+        border-top: 1px solid #999;
+    }
+
+    .findCustomer .findCustomer_account .searchContent ul.list>li {
+        padding: 8px 0;
+        border-bottom: 1px solid #ccc;
+    }
+
+    .findCustomer .findCustomer_account .searchContent ul.list>li:last-child {
+        border-bottom: none;
+    }
+    .findCustomer .findCustomer_account .searchContent ul.list>li .mailAddress{
+        font-weight: bold;
+    }
+    .findCustomer .findCustomer_account .searchContent ul.list>li .mailPercent{
+        padding-left: 15px;
+        margin-left: 15px;
+        position: relative;
+    }
+    .findCustomer .findCustomer_account .searchContent ul.list>li .mailPercent::before{
+        content: '';
+        width:10px;
+        height:10px;
+        border-radius: 50%;
+        background:#f60;
+        position: absolute;
+        left:0;
+        top:50%;
+        margin-top:-5px;
+    }
+    .findCustomer .findCustomer_account .searchContent ul.list>li ol.more {
+        margin: 8px 20px;
+    }
+
+    .findCustomer .findCustomer_account .searchContent ul.list>li ol.more li {
+        list-style: disc;
+    }
+}
