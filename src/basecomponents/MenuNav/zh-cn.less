@@ -1,0 +1,90 @@
+.zh-cn {
+    nav.nav-header {
+        background-color: #fff;
+        min-height: 78px;
+        padding: 15px;
+        position: relative;
+        border-bottom: 1px solid #ccc;
+        .topAD {
+            width: 444px;
+            height: 25px;
+            position: absolute;
+            top: 23px;
+            right: 15px;
+            overflow: hidden;
+            ul {
+                line-height: 25px;
+                overflow: hidden;
+                >li {
+                    height: 25px;
+                    line-height: 25px;
+                    cursor: default;
+                    .iconfont {
+                        font-size: 14px;
+                        color: #008cee;
+                        float: left;
+                    }
+                    .time {
+                        margin: 0 10px 0 6px;
+                        float: left;
+                        >em {
+                            margin-left: 8px;
+                            color: #ddd;
+                        }
+                    }
+                    .something {
+                        width: 350px;
+                        height: 25px;
+                        white-space: nowrap;
+                        text-overflow: ellipsis;
+                        overflow: hidden;
+                        float: left;
+                    }
+                }
+            }
+        }
+    }
+    nav.nav-header .menu-header>span.name {
+        font-size: 23px;
+        color: #ff4141;
+        font {
+            font-size: 14px;
+            color: #999;
+            margin-left: 10px;
+        }
+    }
+    nav.nav-header .menu-header>span.name>em {
+        display: block;
+        font-size: 13px;
+        color: #999;
+    }
+    nav.nav-header .menu-header>span.menu {
+        display: inline-block;
+        margin: 10px 0 0 60px;
+    }
+    nav.nav-header .menu-header>span.menu a {
+        margin-right: 20px;
+        font-size: 16px;
+        color: #999;
+        position: relative;
+    }
+    nav.nav-header .menu-header>span.menu a:hover,
+    nav.nav-header .menu-header>span.menu a.router-link-active {
+        color: #222;
+    }
+    nav.nav-header .menu-header>span.menu a .tip-num {
+        display: inline-block;
+        padding: 0 5px;
+        min-width: 8px;
+        height: 18px;
+        line-height: 18px;
+        font-size: 13px;
+        background-color: rgba(255, 0, 0, .7);
+        color: #fff;
+        position: absolute;
+        right: -5px;
+        top: -8px;
+        border-radius: 18px;
+        text-align: center;
+    }
+}

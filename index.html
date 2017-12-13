@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset=utf-8>
+    <title>EDH</title>
+    <meta name=viewport content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+    <link rel="shortcut icon" href="/static/images/favicon.ico">
+
+    <script>
+        //服务端返回
+        var tokenStatic = "0"; //token过期状态,服务端检查
+        var logoPhoto = "/static/images/zh-cn/logo.png"; //登录头像
+        var TIMEZONE = parseInt(+8); //时区
+        var logoFormImage = "/static/images/zh-cn/banner02.png"; //首页背景图片
+        var localLanguage = "zh-cn";//服务端的语言
+
+        //首屏使用的字典文件
+        var I18n = {
+            "zh-cn": {
+                "title": "VUE测试",
+            },
+            "en": {
+                "title": "VUE FE Test",
+            }
+        };
+    </script>
+    
+</head>
+<body style="overflow:auto">
+    <div id=app></div>
+</body>
+</html>
