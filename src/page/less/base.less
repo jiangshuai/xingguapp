@@ -1,0 +1,245 @@
+@defaultColor:#fff;
+@headerBgColor:#20a0ff;
+@footerBgColor:#12D4B5;
+@defaultSize:20;
+
+.font-size(@px){
+	font-size : unit(@px/@defaultSize, px);
+	*font-size : @px px ;
+}
+
+//圆角
+.border-radius(@px){
+	border-radius : @px;
+	-webkit-border-radius : @px;
+	-moz-border-radius : @px;
+	-ms-border-radius : @px;
+	-o-border-radius : @px;
+}
+.border-radius-left-top(@px){
+	border-radius : @px 0px 0px 0px;
+	-webkit-border-radius : @px 0px 0px 0px;
+	-moz-border-radius : @px 0px 0px 0px;
+	-ms-border-radius : @px 0px 0px 0px;
+	-o-border-radius : @px 0px 0px 0px;
+}
+.border-radius-right-top(@px){
+	border-radius : 0px @px 0px 0px;
+	-webkit-border-radius : 0px @px 0px 0px;
+	-moz-border-radius : 0px @px 0px 0px;
+	-ms-border-radius : 0px @px 0px 0px;
+	-o-border-radius : 0px @px 0px 0px;
+}
+.border-radius-left-bottom(@px){
+	border-radius : 0px 0px @px;
+	-webkit-border-radius : 0px 0px @px;
+	-moz-border-radius : 0px 0px @px;
+	-ms-border-radius : 0px 0px @px;
+	-o-border-radius : 0px 0px @px;
+}
+.border-radius-right-bottom(@px){
+	border-radius :0px 0px @px 0px;
+	-webkit-border-radius :0px 0px @px 0px;
+	-moz-border-radius : 0px 0px @px 0px;
+	-ms-border-radius : 0px 0px @px 0px;
+	-o-border-radius : 0px 0px @px 0px;
+}
+
+//placeholder颜色
+.placeholderColor(@color){
+	input::-webkit-input-placeholder, textarea::-webkit-input-placeholder { 
+		color: @color; 
+	} 
+	input:-moz-placeholder, textarea:-moz-placeholder { 
+		color: @color;
+	} 
+	input::-moz-placeholder, textarea::-moz-placeholder { 
+		color: @color;
+	} 
+	input:-ms-input-placeholder, textarea:-ms-input-placeholder { 
+		color: @color; 
+	}
+}
+
+//设置背景渐变
+.background-gradient(@startColor: #FFFFFF, @endColor: #FFFFFF, @startPercent: 0%, @endPercent: 100%) {
+  background-image : -webkit-gradient(linear, left @startPercent, left @endPercent, from(@startColor), to(@endColor)) ; // Safari 4+, Chrome 2+
+  background-image : -webkit-linear-gradient(top, @startColor, @startPercent, @endColor, @endPercent) ; // Safari 5.1+, Chrome 10+
+  background-image :  -moz-linear-gradient(top, @startColor @startPercent, @endColor @endPercent) ; // FF 3.6+
+  background-image : linear-gradient(to bottom, @startColor @startPercent, @endColor @endPercent) ; // Standard, IE10
+  background-repeat : repeat-x ;
+  filter : e(%("progid:DXImageTransform.Microsoft.gradient(startColorstr='%d', endColorstr='%d', GradientType=0)", argb(@startColor), argb(@endColor))) ; // for lt IE10
+}
+
+//设置背景透明
+.background-rgba(@color: rgba(0, 0, 0, .35)) {
+  background: @color;
+  filter: e(%("progid:DXImageTransform.Microsoft.Gradient(GradientType=0, StartColorStr='%d', EndColorStr='%d')", argb(@color), argb(@color))) ;  
+  &:nth-of-type(1n) { // for gt IE8, 阻止背景叠加
+    filter: none\9;
+  }
+}
+
+//块级化并居中类
+.center-block() {
+  display : block ;
+  margin-left : auto ;
+  margin-right : auto ;
+}
+
+//显示方式类
+.inline-block() {
+    display : inline-block ;
+    *display : inline ;
+    //margin-right : -3px ; 元素之间显示间隙，同时没有删除空格的时候就这样写
+    *zoom : 1 ;
+}
+
+//清除浮动类
+.clearfix{
+  &:after {
+    clear : both ;
+    content : " " ;
+    display : block ;
+    font-size : 0 ;
+    height : 0 ;    
+    visibility : hidden ;
+  }  
+  *zoom: 1;  // fix for IE6/7
+}
+
+.fit-height() {
+    overflow : auto ;
+    zoom : 1 ;
+}
+
+//文本溢出省略号
+.ellipsis(){
+	white-space:nowrap;
+	overflow:hidden;
+	text-overflow:ellipsis;
+}
+//渐变动画
+.transition_all{
+    -webkit-transition: all 0.3s ease-out;
+    -moz-transition: all 0.3s ease-out;
+    -ms-transition: all 0.3s ease-out;
+    -o-transition: all 0.3s ease-out;
+    transition: all 0.3s ease-out;  
+}
+
+//颜色
+@blue:#008cee;
+@blue-light:#3bc2b5;
+@red:#f00;
+@yellow:#ff943e;
+@gray:#ccc;
+@black:#000;
+.text-blue {
+    color:@blue;
+}
+.text-blue-light{
+    color:@blue-light;
+}
+.text-red {
+    color:@red;
+}
+.text-yellow{
+	color:@yellow;
+}
+.text-gray{
+    color:@gray;
+}
+.text-black{
+    color:@black;
+}
+//位移
+.text-center {
+    text-align: center!important;
+}
+.text-right {
+    text-align: right!important;
+}
+.pull-left{
+    float: left!important;
+}
+.pull-right {
+    float: right!important;
+}
+//定宽，常用于覆盖对话框子类
+.width320 {
+    width:320px!important;
+}
+.width420 {
+    width:420px!important;
+}
+.widthDefault{
+    width:680px!important;
+}
+.widthFull{
+	width:100%!important;
+}
+//hover
+.text-hover:hover{
+	color:@blue;
+	cursor: pointer;
+}
+//下拉选择select往上，不让留空隙
+.el-select-dropdown {
+    margin-top:0!important;
+    .el-select-dropdown__list {
+        padding:0!important;
+    }
+}
+//弹窗重置
+.el-dialog__header{
+    border-bottom: 1px solid #eee;
+    padding:15px 0 12px!important;
+    margin: 0 15px!important;
+    .el-dialog__title{
+        font-weight: normal;
+    }
+}
+.el-dialog__body{
+    padding:15px 20px!important;
+}
+.el-form-item{
+    margin-bottom: 19px!important;
+}
+input::-webkit-input-placeholder{
+    font-family: 'Helvetica Neue',Helvetica,'PingFang SC','Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',Arial,sans-serif;
+}
+//confirm
+.el-message-box{
+    vertical-align: inherit!important;
+}
+//通用隐藏
+.hidden {
+    display: none;
+}
+
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++ 找客户相关
+.wrapper {
+    width: 1224px;
+    margin: 15px 30px;
+}
+
+.bg-gray {
+    background-color: #efeff4;
+}
+.width999 {
+    width: 860px;
+}
+.width520 {
+    width:520px!important;
+}
+.Box {
+    width: 1024px;
+    margin: 0 15px;
+}
+label{
+    font-weight: normal;
+}
+.el-loading-mask{
+    background-color: #fff;
+}
