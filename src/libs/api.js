@@ -28,7 +28,8 @@ export default {
         'getLookupEmpDataList':'/api/FastAddCustomer/GetLookupEmpDataList',
         'saveCustomerData':'/api/FastAddCustomer/SaveCustomerData',
         'getM8EmpId':'/M8Info/GetM8EmpId',
-        'hasCreateCustomer':'/fumaso/fileFlag'
+        'hasCreateCustomer':'/fumaso/fileFlag',
+        'GetCustomer':'/api/CustomerList/GetCustomer'
     },
     'AccountManager':{
         'getAccount':'/accountManager/glAccount',

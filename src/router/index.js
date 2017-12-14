@@ -31,6 +31,8 @@ import InvoiceSet from '@/page/Main/AccountManager/InvoiceSet/Index'
  
  
 import FastCustomer from '@/page/Main/FastCustomer/Index'
+import CustomerList from '@/page/Main/CustomerList/Index'
+
  
 
 import store from '@/vuex/store'
@@ -144,6 +146,11 @@ const router = new Router({
     component: FastCustomer
   },
   {
+    path: '/customerList',
+    name: 'CustomerList',
+    component: CustomerList
+  },
+  {
     path: '/main',
     name: 'Main',
     meta: {
@@ -185,11 +192,6 @@ router.beforeEach((to, from, next) => {
 })
 
 function isEmptyObject(obj) {
-  /*   for (var key in obj) {
-        return false;
-    }
-    */
- 
   if (obj.empId == null || obj.empId == '' ||
     obj.companyId == null || obj.companyId == '') {
  

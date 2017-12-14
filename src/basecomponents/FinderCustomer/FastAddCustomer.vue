@@ -139,44 +139,13 @@ export default {
   },
   created() {
     let _this = this;
-    this.$http
-      .get(this.Global.baseURL + this.Global.api.Account.getUrl, {
-        params: {
-          cid: this.$store.state.user.companyId
-        }
-      })
-      .then(
-        function(res) {
-          if (res.body != null && res.body != null) {
-            var returndata = JSON.parse(res.body);
-            if (returndata.status != "E" && returndata.status != null) {
-              _this.localUrlString = returndata.resultString;
-            }
-          }
-          if (
-            _this.localUrlString == undefined ||
-            (_this.localUrlString == undefined) == null ||
-            _this.localUrlString == ""
-          ) {
-            this.$message({
-              message: "无法获取 Fumasoft API URL！",
-              type: "warning"
-            });
-            return;
-          }
-        },
-        function(res) {
-          //this.$message.error(res.body.msg);
-        }
-      );
+    _this.localUrlString=  this.Global.baseURL;
   },
   methods: {
 
    getbackData()
    {
-
-         
-
+   
    },
 
     getSonValue(
