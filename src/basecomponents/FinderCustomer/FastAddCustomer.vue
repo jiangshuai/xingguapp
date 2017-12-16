@@ -9,20 +9,20 @@
         </tr>
         <tr v-for="(trItem,index) in  showFieldListOne" :key="index">
           <td v-for="(tdItem,index2) in trItem" :key="index2" v-if="tdItem.ControlType != null && tdItem.ControlType != '' && tdItem.ControlType != 'null'">
-            <span class="tdTitle">{{tdItem.FieldCaption}} </span>
+            <span class="tdTitle"><span v-if="tdItem.IsNotNull==1" style="color:red">*</span>{{tdItem.FieldCaption}} </span>
             <template v-if="tdItem.ControlType == 'TcxDBDateEdit'">
-                                <el-date-picker class="pull-right f-width" style="width:188px;"   type="datetime"  :editable="false" v-model="tdItem.inputValue"   placeholder="选择日期时间"> </el-date-picker>
+                                <el-date-picker class="pull-right f-width" style="width:168px;"   type="date"  :editable="false" v-model="tdItem.inputValue"   placeholder="选择日期时间"> </el-date-picker>
 </template>
 <template v-if="tdItem.ControlType == 'TcxDBTextEdit'">
-  <el-input placeholder="请输入内容" v-model="tdItem.inputValue" style="width:188px;" class="pull-right f-width">
+  <el-input placeholder="请输入内容" v-model="tdItem.inputValue" style="width:168px;" class="pull-right f-width">
   </el-input>
 </template>
 <template v-if="tdItem.ControlType == 'TcxDBMemo'">
-  <el-input type="textarea" :autosize="{ minRows: 2, maxRows: 2}" style="width:188px;" v-model="tdItem.inputValue" class="pull-right f-width" placeholder="请输入内容"> </el-input>
+  <el-input type="textarea" :autosize="{ minRows: 2, maxRows: 2}" style="width:168px;" v-model="tdItem.inputValue" class="pull-right f-width" placeholder="请输入内容"> </el-input>
 </template>
 <template v-if="tdItem.ControlType == 'TFMDBLookupComboBox' && tdItem.optionList!=null && tdItem.optionList.length>
    0">
-  <el-select v-model="tdItem.inputValue" value-key="tdItem.FieldName" clearable placeholder="请选择" style="width:188px;" class="pull-right f-width">
+  <el-select v-model="tdItem.inputValue" value-key="tdItem.FieldName" clearable placeholder="请选择" style="width:168px;" class="pull-right f-width">
     <el-option v-for="option in tdItem.optionList" :key="option.ValueID" :label="option.ValueName" :value="option.ValueID">
     </el-option>
   </el-select>
@@ -44,21 +44,21 @@
                 </tr>
                 <tr v-for="(trItem,index) in  showFieldListTwo" :key="index">
                     <td v-for="(tdItem,index2) in trItem" :key="index2"  v-if="tdItem.ControlType != null && tdItem.ControlType != '' && tdItem.ControlType != 'null'">
-                        <span class="tdTitle">{{tdItem.FieldCaption}} </span>
+                        <span class="tdTitle"><span v-if="tdItem.IsNotNull==1" style="color:red">*</span>{{tdItem.FieldCaption}} </span>
 <template v-if="tdItem.ControlType == 'TcxDBDateEdit'">
-  <el-date-picker type="datetime" class="pull-right f-width" style="width:188px;" :editable="false" v-model="tdItem.inputValue" placeholder="选择日期时间">
+  <el-date-picker type="date" class="pull-right f-width" style="width:168px;" :editable="false" v-model="tdItem.inputValue" placeholder="选择日期时间">
   </el-date-picker>
 </template>
 <template v-if="tdItem.ControlType == 'TcxDBTextEdit'">
-  <el-input placeholder="请输入内容" v-model="tdItem.inputValue" style="width:188px;" class="pull-right f-width">
+  <el-input placeholder="请输入内容" v-model="tdItem.inputValue" style="width:168px;" class="pull-right f-width">
   </el-input>
 </template>
 <template v-if="tdItem.ControlType == 'TcxDBMemo'">
-  <el-input type="textarea" :autosize="{ minRows: 2, maxRows: 2}" style="width:188px;" v-model="tdItem.inputValue" class="pull-right f-width" placeholder="请输入内容"> </el-input>
+  <el-input type="textarea" :autosize="{ minRows: 2, maxRows: 2}" style="width:168px;" v-model="tdItem.inputValue" class="pull-right f-width" placeholder="请输入内容"> </el-input>
 </template>
 <template v-if="tdItem.ControlType == 'TFMDBLookupComboBox' && tdItem.optionList!=null && tdItem.optionList.length>
    0">
-  <el-select v-model="tdItem.inputValue" value-key="tdItem.FieldName" clearable placeholder="请选择" style="width:188px;" class="pull-right f-width">
+  <el-select v-model="tdItem.inputValue" value-key="tdItem.FieldName" clearable placeholder="请选择" style="width:168px;" class="pull-right f-width">
     <el-option v-for="option in tdItem.optionList" :key="option.ValueID" :label="option.ValueName" :value="option.ValueID">
     </el-option>
   </el-select>
@@ -78,21 +78,21 @@
                 </tr>
                 <tr v-for="(trItem,index) in  showFieldListThree" :key="index">
                     <td v-for="(tdItem,index2) in trItem" :key="index2"  v-if="tdItem.ControlType != null && tdItem.ControlType != '' && tdItem.ControlType != 'null'">
-                        <span class="tdTitle">{{tdItem.FieldCaption}} </span>
+                        <span class="tdTitle"><span v-if="tdItem.IsNotNull==1" style="color:red">*</span>{{tdItem.FieldCaption}} </span>
 <template v-if="tdItem.ControlType == 'TcxDBDateEdit'">
-  <el-date-picker type="datetime" class="pull-right f-width" style="width:188px;" :editable="false" v-model="tdItem.inputValue" placeholder="选择日期时间">
+  <el-date-picker type="date" class="pull-right f-width" style="width:168px;" :editable="false" v-model="tdItem.inputValue" placeholder="选择日期时间">
   </el-date-picker>
 </template>
 <template v-if="tdItem.ControlType == 'TcxDBTextEdit'">
-  <el-input placeholder="请输入内容" v-model="tdItem.inputValue" style="width:188px;" class="pull-right f-width">
+  <el-input placeholder="请输入内容" v-model="tdItem.inputValue" style="width:168px;" class="pull-right f-width">
   </el-input>
 </template>
 <template v-if="tdItem.ControlType == 'TcxDBMemo'">
-  <el-input type="textarea" :autosize="{ minRows: 2, maxRows: 2}" style="width:188px;" v-model="tdItem.inputValue" class="pull-right f-width" placeholder="请输入内容"> </el-input>
+  <el-input type="textarea" :autosize="{ minRows: 2, maxRows: 2}" style="width:168px;" v-model="tdItem.inputValue" class="pull-right f-width" placeholder="请输入内容"> </el-input>
 </template>
 <template v-if="tdItem.ControlType == 'TFMDBLookupComboBox' && tdItem.optionList!=null && tdItem.optionList.length>
    0">
-  <el-select v-model="tdItem.inputValue" value-key="tdItem.FieldName" clearable placeholder="请选择" style="width:188px;" class="pull-right f-width">
+  <el-select v-model="tdItem.inputValue" value-key="tdItem.FieldName" clearable placeholder="请选择" style="width:168px;" class="pull-right f-width">
     <el-option v-for="option in tdItem.optionList" :key="option.ValueID" :label="option.ValueName" :value="option.ValueID">
     </el-option>
   </el-select>
@@ -410,7 +410,18 @@ export default {
           }
         );
     },
-
+ getnowDate() {
+      var nowDate = new Date();
+      var year = nowDate.getFullYear();
+      var month =
+        nowDate.getMonth() + 1 < 10
+          ? "0" + (nowDate.getMonth() + 1)
+          : nowDate.getMonth() + 1;
+      var day =
+        nowDate.getDate() < 10 ? "0" + nowDate.getDate() : nowDate.getDate();
+      var dateStr = year + "-" + month + "-" + day;
+      return dateStr;
+    },
     getFieldList() {
       let _this = this;
       this.fastAddCustomerLoading = true;
@@ -436,7 +447,58 @@ export default {
                     ValueID: "",
                     ValueName: ""
                   });
-                  element.inputValue = "";
+
+
+
+                 if (
+                    element.DefaultValue != null &&
+                    element.DefaultValue != ""
+                  ) {
+                    if (element.DefaultValue == "[df_date]") {
+                      element.inputValue = this.getnowDate();
+                    } else if (element.DefaultValue == "[df_EmpID]") {
+                      element.inputValue = this.$store.state.user.m8empid;
+                    } else {
+                      if (element.DefaultValue.indexOf("{") > -1) {
+                        this.$http
+                          .get(
+                            this.localUrlString +
+                              this.Global.api.FastAddCustomer
+                                .getFieldDefaultValue,
+                            {
+                              params: {
+                                fieldname: element.FieldName
+                              }
+                            }
+                          )
+                          .then(
+                            function(res) {
+                              console.log(res);
+                              if (res.body != "") {
+                                var returndata = JSON.parse(res.body);
+                                if (
+                                  returndata.status != "E" &&
+                                  returndata.status != null
+                                ) {
+                                  element.inputValue = returndata.resultString;
+                                } else {
+                                  element.inputValue = "";
+                                }
+                              } else {
+                                element.inputValue = "";
+                              }
+                            },
+                            function(res) {}
+                          );
+                      } else {
+                        element.inputValue = element.DefaultValue;
+                      }
+                    }
+                  } else {
+                    element.inputValue = "";
+                  }
+
+
                   if (
                     element.IsShow &&
                     element.ControlType != null &&
@@ -613,7 +675,7 @@ export default {
                   element.forEach(function(subElement) {
                     if (subElement.DataAssociateFUID == dataAssociateFUID) {
                       subElement.optionList = result.DataList;
-                      subElement.inputValue = "";
+                      //subElement.inputValue = "";
                     }
                   }, this);
                 }, this);

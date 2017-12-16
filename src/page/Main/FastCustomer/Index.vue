@@ -55,12 +55,11 @@ export default {
   created() {},
   methods: {
     noSelectCustomer() {
-      this.$refs.customerinfo.customerInfoShow = false;
+      this.$refs.customerinfo.isShow = false;
       alert("no select");
     },
     getbackCustomerInfo(value) {
-      alert(value);
-      this.$refs.customerinfo.customerInfoShow = true;
+      this.$refs.customerinfo.isShow = true;
     },
     getbackData(value) {
       this.$emit("getbackData", this.rocketreach_id);
@@ -68,12 +67,14 @@ export default {
 
     getCustomer(custfid) {
       if (custfid != 0) {
-        this.$refs.customerinfo.customerInfoShow = true;
+        this.$refs.customerinfo.detailId=custfid;
+        this.$refs.customerinfo.isShow = true;
         this.$refs.customer.DialogSelect.isOpen = false;
         this.form.firstShow = false;
         this.buttonVisible = true;
+        this.$refs.customerinfo.showCustDialog(this.form.mailAddress,this.form.mailDisaplayName);
       } else {
-        this.$refs.customerinfo.customerInfoShow = false;
+        this.$refs.customerinfo.isShow = false;
         this.form.firstShow = true;
         this.buttonVisible = false;
         this.$refs.customer.DialogSelect.isOpen = false;

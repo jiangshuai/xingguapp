@@ -1,6 +1,6 @@
 <template>
   <div style="float:right">
-    <el-input placeholder="" value="saveValue"  :disabled="true" v-model="inputValue" icon="menu"  style="width:188px;"  :on-icon-click="showPage" class="pull-right f-width">
+    <el-input placeholder="" value="saveValue"  :disabled="true" v-model="inputValue" icon="menu"  style="width:168px;"  :on-icon-click="showPage" class="pull-right f-width">
     </el-input>
     <el-dialog :title="titleValue" top="0" :visible.sync="dialogVisible" style="width:1000px;left:-20%" :modal="false">
       <div style="margin-top: 15px;">
