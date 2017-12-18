@@ -1,6 +1,6 @@
 <template>
   <div style="float:right">
-    <el-input placeholder="请选择人员" value="saveValue" :disabled="true" v-model="inputValue" icon="menu"  style="width:188px;"  :on-icon-click="showCityPage" class="pull-right f-width">
+    <el-input placeholder="请选择人员" value="saveValue" :disabled="true" v-model="inputValue" icon="menu"  style="width:168px;"  :on-icon-click="showCityPage" class="pull-right f-width">
     </el-input>
     <el-dialog title="提示" :visible.sync="dialogVisible" size="tiny" :before-close="handleClose" :modal="false">
       <el-input placeholder="输入关键字进行过滤" v-model="filterText">

@@ -1,5 +1,5 @@
 <template>
-  <div>
+<div>
     <el-form v-if="isShow" :inline="true" v-loading.body="fastAddCustomerLoading" :label-position="labelPosition">
       <table class="tableClass">
         <tr class="titleClass">
@@ -110,6 +110,7 @@
     </div>
 </template>
 
+
 <script>
 import FDatetime from "@/basecomponents/Widget/FDatetime";
 import FDorpdownList from "@/basecomponents/Widget/FDorpdownList";
@@ -117,7 +118,7 @@ import FEmployee from "@/basecomponents/Widget/FEmployee";
 import FLookupCode from "@/basecomponents/Widget/FLookupCode";
 import FRegion from "@/basecomponents/Widget/FRegion";
 export default {
-  name: "FastAddCustomer",
+  name: "CustomerInfo",
   props: [],
   data() {
     return {
@@ -134,12 +135,14 @@ export default {
       defaultMailAddress: "",
       defaultFullName: "",
       localUrlString: "",
-      rocketreach_id:0
+      rocketreach_id:0,
+      detailId:0
     };
   },
   created() {
     let _this = this;
     _this.localUrlString=  this.Global.baseURL;
+    //this.getFieldList();
   },
   methods: {
 
@@ -423,14 +426,15 @@ export default {
       return dateStr;
     },
     getFieldList() {
+
       let _this = this;
       this.fastAddCustomerLoading = true;
       this.$http
         .get(
-          _this.localUrlString + this.Global.api.FastAddCustomer.getFieldList,
+          _this.localUrlString + this.Global.api.FastAddCustomer.getCustomerInfo,
           {
             params: {
-              mouldId: "BF001",
+              detailId: this.detailId,
               empId: this.$store.state.user.m8empid
             }
           }
@@ -441,6 +445,7 @@ export default {
               var result = JSON.parse(res.body);
               if (result.status != null && result.status == "S") {
                 //分不同的类别
+                result.DataList= JSON.parse(result.resultString);
                 result.DataList.forEach(function(element) {
                   element.optionList = new Array();
                   element.optionList.push({
@@ -448,56 +453,11 @@ export default {
                     ValueName: ""
                   });
 
-
-
-                 if (
-                    element.DefaultValue != null &&
-                    element.DefaultValue != ""
-                  ) {
-                    if (element.DefaultValue == "[df_date]") {
-                      element.inputValue = this.getnowDate();
-                    } else if (element.DefaultValue == "[df_EmpID]") {
-                      element.inputValue = this.$store.state.user.m8empid;
-                    } else {
-                      if (element.DefaultValue.indexOf("{") > -1) {
-                        this.$http
-                          .get(
-                            this.localUrlString +
-                              this.Global.api.FastAddCustomer
-                                .getFieldDefaultValue,
-                            {
-                              params: {
-                                fieldname: element.FieldName
-                              }
-                            }
-                          )
-                          .then(
-                            function(res) {
-                              console.log(res);
-                              if (res.body != "") {
-                                var returndata = JSON.parse(res.body);
-                                if (
-                                  returndata.status != "E" &&
-                                  returndata.status != null
-                                ) {
-                                  element.inputValue = returndata.resultString;
-                                } else {
-                                  element.inputValue = "";
-                                }
-                              } else {
-                                element.inputValue = "";
-                              }
-                            },
-                            function(res) {}
-                          );
-                      } else {
+                 if (element.DefaultValue != null && element.DefaultValue != "" ) {
                         element.inputValue = element.DefaultValue;
-                      }
-                    }
                   } else {
                     element.inputValue = "";
                   }
-
 
                   if (
                     element.IsShow &&
@@ -515,6 +475,9 @@ export default {
                     this.hideFieldList.push(element);
                   }
                 }, this);
+
+
+
                 //客户信息
                 var tempOne = this.showFieldListOne;
                 this.showFieldListOne = [];
