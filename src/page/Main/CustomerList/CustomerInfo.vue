@@ -8,38 +8,22 @@
           </td>
         </tr>
         <tr v-for="(trItem,index) in  showFieldListOne" :key="index">
-          <td v-for="(tdItem,index2) in trItem" :key="index2" v-if="tdItem.ControlType != null && tdItem.ControlType != '' && tdItem.ControlType != 'null'">
-            <span class="tdTitle"><span v-if="tdItem.IsNotNull==1" style="color:red">*</span>{{tdItem.FieldCaption}} </span>
-            <template v-if="tdItem.ControlType == 'TcxDBDateEdit'">
-                                <el-date-picker class="pull-right f-width" style="width:168px;"   type="date"  :editable="false" v-model="tdItem.inputValue"   placeholder="选择日期时间"> </el-date-picker>
-</template>
-<template v-if="tdItem.ControlType == 'TcxDBTextEdit'">
-  <el-input placeholder="请输入内容" v-model="tdItem.inputValue" style="width:168px;" class="pull-right f-width">
-  </el-input>
-</template>
-<template v-if="tdItem.ControlType == 'TcxDBMemo'">
-  <el-input type="textarea" :autosize="{ minRows: 2, maxRows: 2}" style="width:168px;" v-model="tdItem.inputValue" class="pull-right f-width" placeholder="请输入内容"> </el-input>
-</template>
-<template v-if="tdItem.ControlType == 'TFMDBLookupComboBox' && tdItem.optionList!=null && tdItem.optionList.length>
-   0">
-  <el-select v-model="tdItem.inputValue" value-key="tdItem.FieldName" clearable placeholder="请选择" style="width:168px;" class="pull-right f-width">
-    <el-option v-for="option in tdItem.optionList" :key="option.ValueID" :label="option.ValueName" :value="option.ValueID">
-    </el-option>
-  </el-select>
-</template>
-                        <!-- 选地区 -->
-                        <fRegion ref="fRegion" :localUrlString="localUrlString" :returnValues="tdItem.SearchReturnFields"  :fuid="tdItem.DataAssociateFUID" :dataIndex="1" :fieldName="tdItem.FieldName" @getSonValue="getSonValue" v-if="tdItem.ControlType == 'TFMDBFilterLookup' && tdItem.DataStyleType == 'lkpCities'"></fRegion>
-                        <fLookupCode ref="fLookupCode"  :fuid="tdItem.DataAssociateFUID"  v-if="tdItem.ControlType == 'TFMDBFilterLookup' 
-                                                    && tdItem.DataStyleType != 'lkpCities' && tdItem.DataStyleType != 'lkpUsers'" 
-                                              :localUrlString="localUrlString"     :titleValue="tdItem.FieldCaption"  :dataIndex="1" :fieldName="tdItem.FieldName" @getSonValue="getSonValue" ></fLookupCode>
-                        <!-- 选择人员 -->
-                        <fEmployee  v-if="tdItem.ControlType == 'TFMDBFilterLookup' && tdItem.DataStyleType == 'lkpUsers'" 
-                               :localUrlString="localUrlString"    :dataIndex="1" :fieldName="tdItem.FieldName" @getSonValue="getSonValue" ></fEmployee>
+                    <td v-for="(tdItem,index2) in trItem" :key="index2" v-if="tdItem.ControlType != null && tdItem.ControlType != '' && tdItem.ControlType != 'null'">
+                      <span class="tdLabel">{{tdItem.FieldCaption}}:</span>
+                      <span class="tdOverFlow" :title="tdItem.inputValue">{{tdItem.inputValue}}</span>
                     </td>
                 </tr>
                 <tr class="titleClass">
                     <td colspan="3">
                         <div>客户联系人</div>
+
+                          <el-button :plain="true" @click="addContcts()">新增</el-button>
+                             <el-radio-group v-model="selectCustomer" @change="selectCust">
+                                <template  v-for="(contact,linkIndex)    in contactList" >
+                                        <el-radio  :key="linkIndex" :label="contact.FID">{{contact.FullName}}</el-radio>
+                                </template>
+                           </el-radio-group>
+                             
                     </td>
                 </tr>
                 <tr v-for="(trItem,index) in  showFieldListTwo" :key="index">
@@ -68,7 +52,7 @@
                         <fLookupCode ref="fLookupCode"  :localUrlString="localUrlString" :dataIndex="2"  :titleValue="tdItem.FieldCaption" :fieldName="tdItem.FieldName" @getSonValue="getSonValue"  :fuid="tdItem.DataAssociateFUID"  v-if="tdItem.ControlType == 'TFMDBFilterLookup' 
                                                     && tdItem.DataStyleType != 'lkpCities' && tdItem.DataStyleType != 'lkpUsers'" ></fLookupCode>
                         <!-- 选择人员 -->
-                        <fEmployee  :localUrlString="localUrlString"  :dataIndex="2" :fieldName="tdItem.FieldName" @getSonValue="getSonValue"   v-if="tdItem.ControlType == 'TFMDBFilterLookup' && tdItem.DataStyleType == 'lkpUsers'"></fEmployee>
+                        <fEmployee ref="fEmployeeTwo" :inputValue="tdItem.inputValue" :localUrlString="localUrlString"  :dataIndex="2" :fieldName="tdItem.FieldName" @getSonValue="getSonValue"   v-if="tdItem.ControlType == 'TFMDBFilterLookup' && tdItem.DataStyleType == 'lkpUsers'"></fEmployee>
                     </td>
                 </tr>
                 <tr class="titleClass">
@@ -102,7 +86,7 @@
                         <fLookupCode ref="fLookupCode" :localUrlString="localUrlString" :titleValue="tdItem.FieldCaption" :dataIndex="3" :fieldName="tdItem.FieldName" @getSonValue="getSonValue"  :fuid="tdItem.DataAssociateFUID"  v-if="tdItem.ControlType == 'TFMDBFilterLookup' 
                                                     && tdItem.DataStyleType != 'lkpCities' && tdItem.DataStyleType != 'lkpUsers'" ></fLookupCode>
                         <!-- 选择人员 -->
-                        <fEmployee  :dataIndex="3" :localUrlString="localUrlString" :fieldName="tdItem.FieldName" @getSonValue="getSonValue"  v-if="tdItem.ControlType == 'TFMDBFilterLookup' && tdItem.DataStyleType == 'lkpUsers'"></fEmployee>
+                        <fEmployee :inputValue="tdItem.inputValue" :dataIndex="3" :localUrlString="localUrlString" :fieldName="tdItem.FieldName" @getSonValue="getSonValue"  v-if="tdItem.ControlType == 'TFMDBFilterLookup' && tdItem.DataStyleType == 'lkpUsers'"></fEmployee>
                     </td>
                 </tr>
             </table>
@@ -135,21 +119,49 @@ export default {
       defaultMailAddress: "",
       defaultFullName: "",
       localUrlString: "",
-      rocketreach_id:0,
-      detailId:0
+      rocketreach_id: 0,
+      detailId: 0,
+      empId: "",
+      contactList: [],
+      emailList: [],
+      selectCustomer: 0,
+      isAdd: false
     };
   },
   created() {
     let _this = this;
-    _this.localUrlString=  this.Global.baseURL;
+    _this.localUrlString = this.Global.baseURL;
     //this.getFieldList();
   },
   methods: {
-
-   getbackData()
-   {
-   
-   },
+    selectCust(val) {
+      let _this = this;
+      this.selectCustomer = val;
+      this.contactList.forEach(contactelement => {
+        if (contactelement.FID == this.selectCustomer) {
+          this.showFieldListTwo.forEach(function(element) {
+            element.forEach(function(contactsubElement) {
+              if (
+                contactelement[contactsubElement.FieldName] != undefined &&
+                contactelement[contactsubElement.FieldName] != ""
+              ) {
+                if (contactsubElement.ControlType == "TFMDBLookupComboBox") {
+                  contactsubElement.inputValue = contactelement[
+                    contactsubElement.FieldName
+                  ].toString();
+                } else {
+                  contactsubElement.inputValue =
+                    contactelement[contactsubElement.FieldName];
+                }
+              } else {
+                contactsubElement.inputValue = "";
+              }
+            });
+          });
+        }
+      });
+    },
+    getbackData() {},
 
     getSonValue(
       index,
@@ -292,19 +304,38 @@ export default {
         }, this);
       }
     },
-    saveData() {
 
+    addContcts() {
+      this.selectCustomer = 0;
+      this.isAdd = true;
+      var empId = this.empId;
+      this.showFieldListTwo.forEach(function(element) {
+        element.forEach(function(contactsubElement) {
+          if (
+            contactsubElement.DefaultValue != null &&
+            contactsubElement.DefaultValue != "" &&
+            contactsubElement.SQLNo == "2"
+          ) {
+            if (contactsubElement.DefaultValue == "[df_EmpID]") {
+              contactsubElement.inputValue = empId;
+            } else {
+              contactsubElement.inputValue = contactsubElement.DefaultValue;
+            }
+          } else {
+            contactsubElement.inputValue = "";
+          }
+        });
+      });
+    },
+
+    saveData() {
       var saveDataList = new Array();
-      this.showFieldListOne.forEach(function(element) {
-        element.forEach(function(subElement) {
-          saveDataList.push(subElement);
-        }, this);
-      }, this);
       this.showFieldListTwo.forEach(function(element) {
         element.forEach(function(subElement) {
           saveDataList.push(subElement);
         }, this);
       }, this);
+
       this.showFieldListThree.forEach(function(element) {
         element.forEach(function(subElement) {
           saveDataList.push(subElement);
@@ -313,6 +344,7 @@ export default {
       this.hideFieldList.forEach(function(element) {
         saveDataList.push(element);
       }, this);
+
       //判断是否为空
       var isEmpty = false;
       saveDataList.every(function(element) {
@@ -333,13 +365,17 @@ export default {
       if (isEmpty) {
         return;
       }
-      console.log("save data:");
-      console.log(saveDataList);
+
+      var sendData = {
+        custFid: this.detailId,
+        constactFid: this.selectCustomer,
+        dataList: saveDataList
+      };
+
       this.$http
         .post(
-          this.localUrlString +
-            this.Global.api.FastAddCustomer.saveCustomerData,
-          saveDataList
+          this.localUrlString + this.Global.api.FastAddCustomer.saveContactInfo,
+          sendData
         )
         .then(
           function(res) {
@@ -349,52 +385,8 @@ export default {
                 showClose: true,
                 message: "save success",
                 type: "success",
-                duration: 120000
+                duration: 5000
               });
-
-              this.$http
-                .get(
-                  this.Global.baseURL +
-                    this.Global.api.FastAddCustomer.hasCreateCustomer,
-                  {
-                    params: {
-                      id: this.rocketreach_id
-                    }
-                  }
-                )
-                .then(
-                  function(res) {
-                    if (res.body!= "") {
-
-                      console.log(res.body);
-                      var returndata = JSON.parse(res.body);
-                      if (
-                        returndata.status != "E" &&
-                        returndata.status != null
-                      ) {
-                        this.$emit("getbackData", this.rocketreach_id); 
-                        this.$emit("closePage"); //关闭页面
-                      } else {
-                        this.$message({
-                          message: returndata.message,
-                          type: "warning"
-                        });
-
-                        this.$emit("closePage"); //关闭页面
-                      }
-                    } else {
-                      this.$message({
-                        message: "api异常",
-                        type: "warning"
-                      });
-
-                      this.$emit("closePage"); //关闭页面
-                    }
-                  },
-                  function(res) {
-               
-                  }
-                );
             } else if (
               result.status != null &&
               result.status == "E" &&
@@ -404,7 +396,7 @@ export default {
                 showClose: true,
                 message: result.message,
                 type: "error",
-                duration: 120000
+                duration: 5000
               });
             }
           },
@@ -413,7 +405,7 @@ export default {
           }
         );
     },
- getnowDate() {
+    getnowDate() {
       var nowDate = new Date();
       var year = nowDate.getFullYear();
       var month =
@@ -426,12 +418,12 @@ export default {
       return dateStr;
     },
     getFieldList() {
-
       let _this = this;
       this.fastAddCustomerLoading = true;
       this.$http
         .get(
-          _this.localUrlString + this.Global.api.FastAddCustomer.getCustomerInfo,
+          _this.localUrlString +
+            this.Global.api.FastAddCustomer.getCustomerInfo,
           {
             params: {
               detailId: this.detailId,
@@ -445,7 +437,7 @@ export default {
               var result = JSON.parse(res.body);
               if (result.status != null && result.status == "S") {
                 //分不同的类别
-                result.DataList= JSON.parse(result.resultString);
+                result.DataList = JSON.parse(result.resultString);
                 result.DataList.forEach(function(element) {
                   element.optionList = new Array();
                   element.optionList.push({
@@ -453,8 +445,15 @@ export default {
                     ValueName: ""
                   });
 
-                 if (element.DefaultValue != null && element.DefaultValue != "" ) {
-                        element.inputValue = element.DefaultValue;
+                  if (
+                    element.DefaultValue != null &&
+                    element.DefaultValue != ""
+                  ) {
+                    if (element.DefaultValue == "[df_EmpID]") {
+                      element.inputValue = _this.empId;
+                    } else {
+                      element.inputValue = element.DefaultValue;
+                    }
                   } else {
                     element.inputValue = "";
                   }
@@ -475,8 +474,6 @@ export default {
                     this.hideFieldList.push(element);
                   }
                 }, this);
-
-
 
                 //客户信息
                 var tempOne = this.showFieldListOne;
@@ -612,7 +609,49 @@ export default {
       this.defaultMailAddress = mailAddress;
       this.defaultFullName = fullName;
       this.getFieldList();
+      this.getCustomerContacts();
     },
+
+    getCustomerContacts() {
+      let _this = this;
+      this.$http
+        .get(
+          this.localUrlString +
+            this.Global.api.FastAddCustomer.getCustomerContact,
+          {
+            params: {
+              custfid: this.detailId
+            }
+          }
+        )
+        .then(
+          function(res) {
+            if (res.body != "") {
+              var returndata = JSON.parse(res.body);
+              if (returndata.status != "E" && returndata.status != null) {
+                this.contactList = JSON.parse(returndata.resultString);
+                console.log(this.contactList);
+              } else {
+                this.$message({
+                  message: returndata.message,
+                  type: "warning"
+                });
+                return;
+              }
+            } else {
+              this.$message({
+                message: "error！",
+                type: "warning"
+              });
+              return;
+            }
+          },
+          function(res) {
+            //this.$message.error(res.body.msg);
+          }
+        );
+    },
+
     closeCustDialog() {
       this.isShow = false;
       // this.fieldList = [];

@@ -13,7 +13,7 @@
                     <!-- <router-link   to="/downloadrecord">下载记录</router-link>
                     <router-link   to="/account">账户</router-link> -->
                     <router-link   to="/fastCustomer">客户</router-link>
-                    <router-link   to="/customerList">客户列表</router-link>
+                    <!-- <router-link   to="/customerList">客户列表</router-link> -->
                 </span>
             </div>
         </nav>

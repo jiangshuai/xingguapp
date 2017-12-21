@@ -31,7 +31,10 @@ export default {
         'hasCreateCustomer': '/fumaso/fileFlag',
         'GetCustomer': '/api/CustomerList/GetCustomer',
         'getFieldDefaultValue': '/api/CustomerList/GetCustomerDefaultValue',
-        'getCustomerInfo': '/api/CustomerList/GetCustomerInfo'
+        'getCustomerInfo': '/api/CustomerList/GetCustomerInfo',
+        'getEmpName': '/api/CustomerList/GetEmpNameByEmpId',
+        'getCustomerContact': '/api/CustomerList/GetCustomerContacts',
+        'saveContactInfo': '/api/CustomerList/SaveCustomerContacts'
     },
     'AccountManager': {
         'getAccount': '/accountManager/glAccount',
