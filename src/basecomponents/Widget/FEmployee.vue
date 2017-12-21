@@ -1,6 +1,6 @@
 <template>
   <div style="float:right">
-    <el-input placeholder="请选择人员" value="saveValue" :disabled="true" v-model="inputValue" icon="menu"  style="width:168px;"  :on-icon-click="showCityPage" class="pull-right f-width">
+    <el-input placeholder="请选择人员" value="saveValue" :disabled="true" v-model="showValue" icon="menu"  style="width:168px;"  :on-icon-click="showCityPage" class="pull-right f-width">
     </el-input>
     <el-dialog title="提示" :visible.sync="dialogVisible" size="tiny" :before-close="handleClose" :modal="false">
       <el-input placeholder="输入关键字进行过滤" v-model="filterText">
@@ -18,7 +18,7 @@
 <script>
 export default {
   name: "FEmployee",
-  props: ['dataIndex','fieldName','localUrlString'],
+  props: ["dataIndex", "fieldName", "localUrlString", "inputValue"],
   data() {
     return {
       filterText: "",
@@ -32,19 +32,57 @@ export default {
         NodeType: "NodeType"
       },
       currentNode: [],
-      inputValue: "",
       saveValue: "",
+      showValue: "",
       valueField: "FID",
       displayField: "label"
     };
   },
-  created() {},
+  created() {
+    if (this.inputValue != "") {
+       this.getEmpName(this.inputValue);
+    }
+  },
   watch: {
     filterText(val) {
       this.$refs.employTree.filter(val);
+    },
+    inputValue: function(val) {
+      this.getEmpName(val);
     }
   },
   methods: {
+    getEmpName(empId) {
+      this.$http
+        .get(this.localUrlString + this.Global.api.FastAddCustomer.getEmpName, {
+          params: {
+            empId: empId
+          }
+        })
+        .then(
+          function(res) {
+            if (res.body != "") {
+              var returndata = JSON.parse(res.body);
+              //console.log(this.inputValue);
+              if (returndata.status != "E" && returndata.status != null) {
+                var empname = returndata.resultString;
+                this.showValue = empname;
+              } else {
+                this.$message({
+                  message: returndata.message,
+                  type: "warning"
+                });
+              }
+            } else {
+              this.$message({
+                message: "api异常",
+                type: "warning"
+              });
+            }
+          },
+          function(res) {}
+        );
+    },
     filterNode(value, data) {
       if (!value) return true;
       return data.label.indexOf(value) !== -1;
@@ -133,7 +171,12 @@ export default {
         this.inputValue = this.currentNode[this.displayField];
         this.dialogVisible = false;
         this.saveValue = this.currentNode[this.valueField];
-         this.$emit('getSonValue', this.dataIndex,this.fieldName,this.saveValue);
+        this.$emit(
+          "getSonValue",
+          this.dataIndex,
+          this.fieldName,
+          this.saveValue
+        );
         console.log(this.saveValue);
       } else {
         this.$message({

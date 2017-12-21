@@ -1,12 +1,12 @@
 <template>
     <div class="RechargeRecord">
         <div class="Box">
-           <el-dialog title="客户列表" :visible.sync="DialogSelect.isOpen" @close='confirmCustomer()' custom-class="width720">
+           <el-dialog title="客户列表" :visible.sync="DialogSelect.isOpen" @close='colseSelect()' custom-class="width820">
             <el-form :model="DialogSelect.selectForm">
                 <el-input v-model="filterForm.keyword" @keyup.enter.native="searCustomer()" placeholder="输入搜索">
                     <el-button slot="append" @click='searCustomer()' icon="search">搜索</el-button>
                 </el-input>
-                <el-table :data="tableData" height="300" style="margin:15px 0;">
+                <el-table :data="tableData" height="300" style="margin:15px 0;" v-loading.body="CustomerLoading">
                     <el-table-column width="60">
                         <template scope="scope">    
                                 <el-radio :label="scope.$index" v-model="radio" @change.native="getCurrentRow(scope.row.fid)">&nbsp;</el-radio>
@@ -58,11 +58,13 @@ export default {
       total: 0,
       tableData: [],
       isOpen: false,
-      custid: 0
+      custid: 0,
+      CustomerLoading: true,
+      empId: ""
     };
   },
   created() {
-    this.searchRechargeRecord();
+    //this.searchRechargeRecord();
   },
   mounted() {},
   computed: {},
@@ -74,6 +76,17 @@ export default {
     },
     getCurrentRow(custid) {
       this.custid = custid;
+    },
+
+    colseSelect(v) {
+      if (this.custid != 0) {
+        this.$emit("getCustomer", this.custid);
+        return;
+      }
+
+      this.custid = 0;
+      this.$emit("getCustomer", this.custid);
+      this.DialogSelect.isOpen = false;
     },
 
     confirmCustomer(v) {
@@ -106,7 +119,7 @@ export default {
             pageIndex: this.currentPage,
             pageSize: this.pageSize,
             keyword: this.filterForm.keyword,
-            empId: "003039"
+            empId: this.empId
           }
         })
         .then(
@@ -115,8 +128,9 @@ export default {
               var data = JSON.parse(res.body);
               if (data.status == "S") {
                 var result = data.resultString;
+
                 var dataList = JSON.parse(result);
-                console.log(dataList);
+                //console.log(dataList);
                 var personInfo = [];
                 for (var i = 0; i < dataList.length; i++) {
                   var fid = dataList[i].FID;
@@ -140,6 +154,7 @@ export default {
                 }
                 this.tableData = personInfo;
                 this.total = data.resultCount;
+                this.CustomerLoading = false;
               } else {
                 console.log("e");
               }
@@ -168,5 +183,6 @@ export default {
 </script>
 
 <style lang="less" rel="stylesheet/less">
+@import "../../less/base.less";
 @import "./zh-cn.less";
 </style>

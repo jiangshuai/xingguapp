@@ -1,6 +1,6 @@
 <template>
   <div class="FastCustomer">
-    <el-dialog title="客户"  :visible.sync="dialogFormVisible" >
+    <el-dialog title="客户"  :visible.sync="dialogFormVisible"  custom-class="width820" >
             <el-form :model="form">
                 <div class="M_unknown_customer" v-if="form.firstShow">
                     <p><span class="C6"><em>"{{form.mailDisaplayName}}"</em>&lt;{{form.mailAddress}}&gt;</span><br>是一个陌生客户，<br>抓住机会。<br>立即“新建客户信息” </p>
@@ -49,10 +49,28 @@ export default {
       },
       formLabelWidth: "120px",
       buttonVisible: false,
-      buttonText: "显示"
+      buttonText: "显示",
+      empId: "003039"
     };
   },
-  created() {},
+  created() {
+    if (this.$route.query.empId != null && this.$route.query.empId != "") {
+      this.empId = this.$route.query.empId;
+    }
+    if (
+      this.$route.query.mailAddress != null &&
+      this.$route.query.mailAddress != ""
+    ) {
+      this.form.mailAddress = this.$route.query.mailAddress;
+    }
+
+    if (
+      this.$route.query.displanyName != null &&
+      this.$route.query.displanyName != ""
+    ) {
+      this.form.mailDisaplayName = this.$route.query.displanyName;
+    }
+  },
   methods: {
     noSelectCustomer() {
       this.$refs.customerinfo.isShow = false;
@@ -67,21 +85,30 @@ export default {
 
     getCustomer(custfid) {
       if (custfid != 0) {
-        this.$refs.customerinfo.detailId=custfid;
+        this.$refs.customerinfo.detailId = custfid;
         this.$refs.customerinfo.isShow = true;
         this.$refs.customer.DialogSelect.isOpen = false;
         this.form.firstShow = false;
         this.buttonVisible = true;
-        this.$refs.customerinfo.showCustDialog(this.form.mailAddress,this.form.mailDisaplayName);
+
+        this.$refs.customer.empId = this.empId;
+        this.$refs.customerinfo.empId = this.empId;
+        this.$refs.customerinfo.showCustDialog(
+          this.form.mailAddress,
+          this.form.mailDisaplayName
+        );
       } else {
         this.$refs.customerinfo.isShow = false;
         this.form.firstShow = true;
         this.buttonVisible = false;
+        this.$refs.customer.empId = this.empId;
+        this.$refs.customerinfo.empId = this.empId;
         this.$refs.customer.DialogSelect.isOpen = false;
       }
     },
     hideCreateCustomer() {
       this.$refs.fastAddCustomer.isShow = false;
+      this.$refs.fastAddCustomer.empId = this.empId;
       this.$refs.fastAddCustomer.rocketreach_id = this.rocketreach_id;
       this.$refs.fastAddCustomer.showCustDialog(
         this.form.mailAddress,
@@ -95,13 +122,18 @@ export default {
     addExistCustomerContact() {
       this.form.firstShow = false;
       this.buttonVisible = false;
+      this.$refs.customer.empId = this.empId;
       this.$refs.customer.DialogSelect.isOpen = true;
+      this.$refs.customer.tableData = [];
+      this.$refs.customer.radio = false;
+      this.$refs.customer.searchRechargeRecord();
     },
 
     showNewCustomerInputPage() {
       this.form.firstShow = false;
       this.buttonVisible = true;
       this.$refs.fastAddCustomer.isShow = true;
+      this.$refs.fastAddCustomer.empId = this.empId;
       this.$refs.fastAddCustomer.rocketreach_id = this.rocketreach_id;
       this.$refs.fastAddCustomer.showCustDialog(
         this.form.mailAddress,
@@ -119,7 +151,7 @@ export default {
       if (this.$refs.fastAddCustomer.isShow) {
         this.$refs.fastAddCustomer.saveData();
       } else {
-        alert("add customer");
+        this.$refs.customerinfo.saveData();
       }
     }
   },

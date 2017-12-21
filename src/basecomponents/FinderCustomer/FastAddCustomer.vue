@@ -33,7 +33,7 @@
                                                     && tdItem.DataStyleType != 'lkpCities' && tdItem.DataStyleType != 'lkpUsers'" 
                                               :localUrlString="localUrlString"     :titleValue="tdItem.FieldCaption"  :dataIndex="1" :fieldName="tdItem.FieldName" @getSonValue="getSonValue" ></fLookupCode>
                         <!-- 选择人员 -->
-                        <fEmployee  v-if="tdItem.ControlType == 'TFMDBFilterLookup' && tdItem.DataStyleType == 'lkpUsers'" 
+                        <fEmployee :inputValue="tdItem.inputValue"  v-if="tdItem.ControlType == 'TFMDBFilterLookup' && tdItem.DataStyleType == 'lkpUsers'" 
                                :localUrlString="localUrlString"    :dataIndex="1" :fieldName="tdItem.FieldName" @getSonValue="getSonValue" ></fEmployee>
                     </td>
                 </tr>
@@ -68,7 +68,7 @@
                         <fLookupCode ref="fLookupCode"  :localUrlString="localUrlString" :dataIndex="2"  :titleValue="tdItem.FieldCaption" :fieldName="tdItem.FieldName" @getSonValue="getSonValue"  :fuid="tdItem.DataAssociateFUID"  v-if="tdItem.ControlType == 'TFMDBFilterLookup' 
                                                     && tdItem.DataStyleType != 'lkpCities' && tdItem.DataStyleType != 'lkpUsers'" ></fLookupCode>
                         <!-- 选择人员 -->
-                        <fEmployee  :localUrlString="localUrlString"  :dataIndex="2" :fieldName="tdItem.FieldName" @getSonValue="getSonValue"   v-if="tdItem.ControlType == 'TFMDBFilterLookup' && tdItem.DataStyleType == 'lkpUsers'"></fEmployee>
+                        <fEmployee :inputValue="tdItem.inputValue" :localUrlString="localUrlString"  :dataIndex="2" :fieldName="tdItem.FieldName" @getSonValue="getSonValue"   v-if="tdItem.ControlType == 'TFMDBFilterLookup' && tdItem.DataStyleType == 'lkpUsers'"></fEmployee>
                     </td>
                 </tr>
                 <tr class="titleClass">
@@ -102,7 +102,7 @@
                         <fLookupCode ref="fLookupCode" :localUrlString="localUrlString" :titleValue="tdItem.FieldCaption" :dataIndex="3" :fieldName="tdItem.FieldName" @getSonValue="getSonValue"  :fuid="tdItem.DataAssociateFUID"  v-if="tdItem.ControlType == 'TFMDBFilterLookup' 
                                                     && tdItem.DataStyleType != 'lkpCities' && tdItem.DataStyleType != 'lkpUsers'" ></fLookupCode>
                         <!-- 选择人员 -->
-                        <fEmployee  :dataIndex="3" :localUrlString="localUrlString" :fieldName="tdItem.FieldName" @getSonValue="getSonValue"  v-if="tdItem.ControlType == 'TFMDBFilterLookup' && tdItem.DataStyleType == 'lkpUsers'"></fEmployee>
+                        <fEmployee :inputValue="tdItem.inputValue" :dataIndex="3" :localUrlString="localUrlString" :fieldName="tdItem.FieldName" @getSonValue="getSonValue"  v-if="tdItem.ControlType == 'TFMDBFilterLookup' && tdItem.DataStyleType == 'lkpUsers'"></fEmployee>
                     </td>
                 </tr>
             </table>
@@ -134,7 +134,8 @@ export default {
       defaultMailAddress: "",
       defaultFullName: "",
       localUrlString: "",
-      rocketreach_id:0
+      rocketreach_id:0,
+      empId:''
     };
   },
   created() {
@@ -332,6 +333,8 @@ export default {
       }
       console.log("save data:");
       console.log(saveDataList);
+
+
       this.$http
         .post(
           this.localUrlString +
@@ -457,7 +460,7 @@ export default {
                     if (element.DefaultValue == "[df_date]") {
                       element.inputValue = this.getnowDate();
                     } else if (element.DefaultValue == "[df_EmpID]") {
-                      element.inputValue = this.$store.state.user.m8empid;
+                      element.inputValue = this.empId;
                     } else {
                       if (element.DefaultValue.indexOf("{") > -1) {
                         this.$http
