@@ -11,30 +11,30 @@
           <td v-for="(tdItem,index2) in trItem" :key="index2" v-if="tdItem.ControlType != null && tdItem.ControlType != '' && tdItem.ControlType != 'null'">
             <span class="tdTitle"><span v-if="tdItem.IsNotNull==1" style="color:red">*</span>{{tdItem.FieldCaption}} </span>
             <template v-if="tdItem.ControlType == 'TcxDBDateEdit'">
-                                <el-date-picker class="pull-right f-width" style="width:168px;"   type="date"  :editable="false" v-model="tdItem.inputValue"   placeholder="选择日期时间"> </el-date-picker>
-</template>
-<template v-if="tdItem.ControlType == 'TcxDBTextEdit'">
-  <el-input placeholder="请输入内容" v-model="tdItem.inputValue" style="width:168px;" class="pull-right f-width">
-  </el-input>
-</template>
-<template v-if="tdItem.ControlType == 'TcxDBMemo'">
-  <el-input type="textarea" :autosize="{ minRows: 2, maxRows: 2}" style="width:168px;" v-model="tdItem.inputValue" class="pull-right f-width" placeholder="请输入内容"> </el-input>
-</template>
-<template v-if="tdItem.ControlType == 'TFMDBLookupComboBox' && tdItem.optionList!=null && tdItem.optionList.length>
-   0">
-  <el-select v-model="tdItem.inputValue" value-key="tdItem.FieldName" clearable placeholder="请选择" style="width:168px;" class="pull-right f-width">
-    <el-option v-for="option in tdItem.optionList" :key="option.ValueID" :label="option.ValueName" :value="option.ValueID">
-    </el-option>
-  </el-select>
-</template>
-                        <!-- 选地区 -->
-                        <fRegion ref="fRegion" :localUrlString="localUrlString" :returnValues="tdItem.SearchReturnFields"  :fuid="tdItem.DataAssociateFUID" :dataIndex="1" :fieldName="tdItem.FieldName" @getSonValue="getSonValue" v-if="tdItem.ControlType == 'TFMDBFilterLookup' && tdItem.DataStyleType == 'lkpCities'"></fRegion>
-                        <fLookupCode ref="fLookupCode"  :fuid="tdItem.DataAssociateFUID"  v-if="tdItem.ControlType == 'TFMDBFilterLookup' 
-                                                    && tdItem.DataStyleType != 'lkpCities' && tdItem.DataStyleType != 'lkpUsers'" 
-                                              :localUrlString="localUrlString"     :titleValue="tdItem.FieldCaption"  :dataIndex="1" :fieldName="tdItem.FieldName" @getSonValue="getSonValue" ></fLookupCode>
-                        <!-- 选择人员 -->
-                        <fEmployee :inputValue="tdItem.inputValue"  v-if="tdItem.ControlType == 'TFMDBFilterLookup' && tdItem.DataStyleType == 'lkpUsers'" 
-                               :localUrlString="localUrlString"    :dataIndex="1" :fieldName="tdItem.FieldName" @getSonValue="getSonValue" ></fEmployee>
+              <el-date-picker class="pull-right f-width" style="width:168px;"   type="date"  :editable="false" v-model="tdItem.inputValue"   placeholder="选择日期时间"> </el-date-picker>
+            </template>
+          <template v-if="tdItem.ControlType == 'TcxDBTextEdit'">
+             <el-input placeholder="请输入内容" v-model="tdItem.inputValue" style="width:168px;" class="pull-right f-width"></el-input>
+          </template>
+         <template v-if="tdItem.ControlType == 'TcxDBMemo'">
+         <el-input type="textarea" :autosize="{ minRows: 2, maxRows: 2}" style="width:168px;" v-model="tdItem.inputValue" class="pull-right f-width" placeholder="请输入内容"> </el-input>
+        </template>
+        <template v-if="tdItem.ControlType == 'TFMDBLookupComboBox' && tdItem.optionList!=null && tdItem.optionList.length>0">
+           <el-select v-model="tdItem.inputValue" value-key="tdItem.FieldName" clearable placeholder="请选择" style="width:168px;" class="pull-right f-width">
+             <el-option v-for="option in tdItem.optionList" :key="option.ValueID" :label="option.ValueName" :value="option.ValueID"></el-option>
+          </el-select>
+        </template>
+          <!-- 选地区 -->
+      <fRegion ref="fRegion" :localUrlString="localUrlString" :returnValues="tdItem.SearchReturnFields"  :fuid="tdItem.DataAssociateFUID" :dataIndex="1" :fieldName="tdItem.FieldName" @getSonValue="getSonValue" v-if="tdItem.ControlType == 'TFMDBFilterLookup' && tdItem.DataStyleType == 'lkpCities'">
+
+      </fRegion>
+      <fLookupCode ref="fLookupCode"  :fuid="tdItem.DataAssociateFUID"  v-if="tdItem.ControlType == 'TFMDBFilterLookup'  && tdItem.DataStyleType != 'lkpCities' && tdItem.DataStyleType != 'lkpUsers'" 
+                     :localUrlString="localUrlString"     :titleValue="tdItem.FieldCaption"  :dataIndex="1" :fieldName="tdItem.FieldName" @getSonValue="getSonValue" >
+      </fLookupCode>
+      <!-- 选择人员 -->
+      <fEmployee :inputValue="tdItem.inputValue"  v-if="tdItem.ControlType == 'TFMDBFilterLookup' && tdItem.DataStyleType == 'lkpUsers'" 
+             :localUrlString="localUrlString"    :dataIndex="1" :fieldName="tdItem.FieldName" @getSonValue="getSonValue" >
+      </fEmployee>
                     </td>
                 </tr>
                 <tr class="titleClass">
@@ -121,7 +121,7 @@ export default {
   props: [],
   data() {
     return {
-      fastAddCustomerLoading: false,
+      fastAddCustomerLoading: true,
       showFieldListOne: [],
       showFieldListTwo: [],
       showFieldListThree: [],
@@ -143,12 +143,10 @@ export default {
     _this.localUrlString=  this.Global.baseURL;
   },
   methods: {
-
    getbackData()
    {
    
    },
-
     getSonValue(
       index,
       fieldName,
@@ -381,6 +379,7 @@ export default {
       var dateStr = year + "-" + month + "-" + day;
       return dateStr;
     },
+
     getFieldList() {
       let _this = this;
       this.fastAddCustomerLoading = true;
@@ -390,7 +389,7 @@ export default {
           {
             params: {
               mouldId: "BF001",
-              empId: this.$store.state.user.m8empid
+              empId: this.empId
             }
           }
         )
@@ -407,8 +406,7 @@ export default {
                     ValueName: ""
                   });
 
-
-
+                 element.inputValue = "";
                  if (
                     element.DefaultValue != null &&
                     element.DefaultValue != ""
@@ -432,14 +430,15 @@ export default {
                           )
                           .then(
                             function(res) {
-                              console.log(res);
+                              //console.log(res);
                               if (res.body != "") {
                                 var returndata = JSON.parse(res.body);
                                 if (
                                   returndata.status != "E" &&
                                   returndata.status != null
                                 ) {
-                                  element.inputValue = returndata.resultString;
+                                    element.inputValue = returndata.resultString;
+                                    element.DefaultValue=returndata.resultString;
                                 } else {
                                   element.inputValue = "";
                                 }
@@ -457,6 +456,9 @@ export default {
                     element.inputValue = "";
                   }
 
+              
+
+                 
 
                   if (
                     element.IsShow &&
@@ -474,6 +476,10 @@ export default {
                     this.hideFieldList.push(element);
                   }
                 }, this);
+
+
+               debugger;
+
                 //客户信息
                 var tempOne = this.showFieldListOne;
                 this.showFieldListOne = [];
@@ -487,9 +493,6 @@ export default {
                     this.showFieldListOne.push(groupTemp);
                   }
                 }
-
-
- debugger;
 
                 //客户联系人
                 var tempTwo = this.showFieldListTwo;
@@ -638,7 +641,6 @@ export default {
                   element.forEach(function(subElement) {
                     if (subElement.DataAssociateFUID == dataAssociateFUID) {
                       subElement.optionList = result.DataList;
-                      //subElement.inputValue = "";
                     }
                   }, this);
                 }, this);

@@ -53,8 +53,8 @@ export default {
       labelPosition: "left",
       rocketreach_id: 0,
       form: {
-        mailDisaplayName: "jack",
-        mailAddress: "jack.song@126.com",
+        mailDisaplayName: "王莉莉",
+        mailAddress: "zhangsanfen126@126.com",
         firstShow: true,
         newCustShow: false,
         newSupplierShow: false,
@@ -88,7 +88,7 @@ export default {
     ) {
       this.form.mailDisaplayName = this.$route.query.displanyName;
     }
-
+    //通过邮箱地址判断客户信息是否已经存在
     this.getCustomerInfoByEmail(this.form.mailAddress);
   },
   methods: {

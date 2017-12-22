@@ -1,31 +1,16 @@
 <template>
   <div style="float:right">
-    <el-input placeholder="" value="saveValue"  :disabled="true" v-model="inputValue" icon="menu"  style="width:168px;"  :on-icon-click="showPage" class="pull-right f-width">
+    <el-input placeholder="请选择" value="saveValue"  :disabled="true" v-model="inputValue" icon="menu"  style="width:168px;"  :on-icon-click="showPage" class="pull-right f-width">
     </el-input>
-    <el-dialog :title="titleValue" top="0" :visible.sync="dialogVisible" style="width:1000px;left:-20%" :modal="false">
+    <el-dialog :title="titleValue"  :visible.sync="dialogVisible" style="width:1000px;left:-20%; margin-top:10px; " :modal="false">
       <div style="margin-top: 15px;">
         <el-input placeholder="请输入内容" v-model.trim="searchValue">
           <el-button slot="append" @click="filterData()" icon="search"></el-button>
         </el-input>
       </div>
-      <!-- <el-table :data="gridData">
-                    <el-table-column property="date" label="日期" width="150"></el-table-column>
-                    <el-table-column property="name" label="姓名" width="200"></el-table-column>
-                    <el-table-column property="address" label="地址"></el-table-column>
-                  </el-table> -->
-      <el-table ref="singleTable" height="500" :data="gridData" highlight-current-row @current-change="handleCurrentChange" style="width: 100%">
-        <!--  <el-table-column type="index" width="50">
-            </el-table-column>
-            <el-table-column property="date" label="日期" width="120">
-            </el-table-column>
-            <el-table-column property="name" label="姓名" width="120">
-            </el-table-column>
-            <el-table-column property="address" label="地址">
-            </el-table-column> -->
-        <!--        <el-table-column   :property="valueField" >
-              </el-table-column> -->
-        <el-table-column :property="displayField">
-        </el-table-column>
+     
+        <el-table class="noHeader" ref="singleTable" height="500" :data="gridData" highlight-current-row @current-change="handleCurrentChange" style="width: 100%;">     
+        <el-table-column :property="displayField"></el-table-column>
       </el-table>
       <div style="margin-top: 20px">
         <el-button type="primary" @click="selectValue()">确定</el-button>
@@ -38,7 +23,7 @@
 <script>
 export default {
   name: "FLookupCode",
-  props: ['titleValue','fuid','dataIndex','fieldName','localUrlString'],
+  props: ["titleValue", "fuid", "dataIndex", "fieldName", "localUrlString"],
   data() {
     return {
       dialogVisible: false,
@@ -63,8 +48,7 @@ export default {
             this.gridData.push(element);
           }
         }, this);
-      }else{
-        
+      } else {
       }
     },
     showPage() {
@@ -110,7 +94,15 @@ export default {
       if (this.currentRow != null) {
         this.inputValue = this.currentRow[this.displayField];
         this.saveValue = this.currentRow[this.valueField];
-        this.$emit('getSonValue', this.dataIndex,this.fieldName,this.saveValue,this.inputValue,this.valueField,this.displayField);
+        this.$emit(
+          "getSonValue",
+          this.dataIndex,
+          this.fieldName,
+          this.saveValue,
+          this.inputValue,
+          this.valueField,
+          this.displayField
+        );
         this.dialogVisible = false;
       } else {
         this.$message({
@@ -125,4 +117,9 @@ export default {
 
 <style lang="less" rel="stylesheet/less">
 @import "./zh-cn.less";
+.noHeader {
+  thead {
+    display: none;
+  }
+}
 </style>
