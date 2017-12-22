@@ -114,7 +114,6 @@ export default {
                   _this.canAddNewCustomer = true;
                   _this.customerbreifname = _this.contactInfo[0].BriefName;
                   _this.customerid = _this.contactInfo[0].FID;
-                  console.log(_this.customerbreifname);
                 }
               } else {
                 _this.$message({
