@@ -131,7 +131,6 @@ export default {
   created() {
     let _this = this;
     _this.localUrlString = this.Global.baseURL;
-    //this.getFieldList();
   },
   methods: {
     selectCust(val) {
@@ -474,6 +473,9 @@ export default {
                     this.hideFieldList.push(element);
                   }
                 }, this);
+
+
+                debugger;
 
                 //客户信息
                 var tempOne = this.showFieldListOne;

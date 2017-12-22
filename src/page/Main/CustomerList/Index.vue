@@ -1,21 +1,19 @@
 <template>
     <div class="RechargeRecord">
-        <div class="Box">
-           <el-dialog title="客户列表" :visible.sync="DialogSelect.isOpen" @close='colseSelect()' custom-class="width820">
-            <el-form :model="DialogSelect.selectForm">
+        <div class="Box" >
+           <el-dialog title="客户列表" :visible.sync="DialogSelect.isOpen" @close='colseWindow' custom-class="width820" >
+            <el-form :model="DialogSelect.selectForm" v-loading.body="CustomerLoading">
                 <el-input v-model="filterForm.keyword" @keyup.enter.native="searCustomer()" placeholder="输入搜索">
                     <el-button slot="append" @click='searCustomer()' icon="search">搜索</el-button>
                 </el-input>
-                <el-table :data="tableData" height="300" style="margin:15px 0;" v-loading.body="CustomerLoading">
+                <el-table :data="tableData" height="300" style="margin:15px 0;" empty-text=" " >
                     <el-table-column width="60">
                         <template scope="scope">    
                                 <el-radio :label="scope.$index" v-model="radio" @change.native="getCurrentRow(scope.row.fid)">&nbsp;</el-radio>
                         </template>
                     </el-table-column>
-                    <el-table-column prop="briefname" label="简称">
+                    <el-table-column  prop="briefname" label="简称">
                     </el-table-column>
-                    <!-- <el-table-column prop="fullname" label="全称">
-                    </el-table-column> -->
                     <el-table-column prop="ownername" label="拥有人">
                     </el-table-column>
                       <el-table-column prop="maincontactname" label="主联系人">
@@ -30,8 +28,8 @@
             </div>
                 <br>
                 <div class="text-center">
-                    <el-button type="primary" @click='confirmCustomer(1)' style="width:123px;">确定</el-button>
-                    <el-button @click="confirmCustomer(2)" style="width:123px;">取消</el-button>
+                    <el-button type="primary" @click='confirmCustomer()' style="width:123px;">确定</el-button>
+                    <el-button @click="DialogSelect.isOpen = false" style="width:123px;">取消</el-button>
                 </div>
             </el-form>
             
@@ -69,32 +67,20 @@ export default {
   mounted() {},
   computed: {},
   methods: {
-    closePage() {
-      this.custid = 0;
-      this.$emit("noSelectCustomer");
-      this.DialogSelect.isOpen = false;
-    },
+  
     getCurrentRow(custid) {
       this.custid = custid;
     },
 
-    colseSelect(v) {
-      if (this.custid != 0) {
-        this.$emit("getCustomer", this.custid);
-        return;
-      }
-
-      this.custid = 0;
-      this.$emit("getCustomer", this.custid);
-      this.DialogSelect.isOpen = false;
+    colseWindow()
+    {
+         this.DialogSelect.isOpen = false;
+         this.$emit("noSelectCustomer",this.custid);
     },
 
-    confirmCustomer(v) {
-      if (v == 2) {
-        this.custid = 0;
-      }
-      this.$emit("getCustomer", this.custid);
+    confirmCustomer() {
       this.DialogSelect.isOpen = false;
+      this.$emit("getCustomer", this.custid);
     },
 
     closeSelectCustomer() {

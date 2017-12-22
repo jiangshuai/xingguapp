@@ -6,8 +6,8 @@ let _uploadUrl = '';
 
 if (process.env.NODE_ENV == 'development') {
 
-    _domain = 'http://localhost:21197'; // '/'; 
-    //_domain =    'https://dingc25705ca80dcdc3f6678.fumasoft.com/';// '/'; 
+    //_domain = 'http://localhost:21197'; 
+    _domain = 'https://dingc25705ca80dcdc3f6678.fumasoft.com'; // '/'; 
     //_uploadUrl = 'https://cs.updates.xin/v1/uploadTest';
 } else if (process.env.NODE_ENV == 'production') {
     _domain = 'https://dingc25705ca80dcdc3f6678.fumasoft.com/'; //http://localhost:9001

@@ -912,13 +912,6 @@
     width: 100%;
 }
 
-.el-input.is-disabled .el-input__inner {
-    background-color: rgb(238, 241, 246);
-    border-color: rgb(209, 219, 229);
-    color: #bbb;
-    cursor: not-allowed;
-}
-
 .el-input.is-disabled .el-input__inner:-ms-input-placeholder {
     color: rgb(191, 203, 217);
 }
@@ -2363,7 +2356,7 @@
 
 .el-dialog__header {
     border-bottom: 1px solid #eee;
-    padding:15px 0 12px;
+    padding: 15px 0 12px;
     margin: 0 15px;
 }
 
@@ -2535,10 +2528,10 @@
 }
 
 .el-input.is-disabled .el-input__inner {
-    background-color: rgb(238, 241, 246);
+    /* background-color: rgb(238, 241, 246);
     border-color: rgb(209, 219, 229);
     color: #bbb;
-    cursor: not-allowed;
+    cursor: not-allowed; */
 }
 
 .el-input.is-disabled .el-input__inner:-ms-input-placeholder {
@@ -3822,16 +3815,17 @@
 }
 
 .el-dropdown-menu__item {
-    color:#333;
+    color: #333;
     list-style: none;
     line-height: 36px;
     padding: 0 10px;
     margin: 0;
     cursor: pointer;
 }
-.el-dropdown-menu__item .iconfont{
-  margin-right: 5px;
-  color:#888;
+
+.el-dropdown-menu__item .iconfont {
+    margin-right: 5px;
+    color: #888;
 }
 
 .el-dropdown-menu__item:not(.is-disabled):hover {
@@ -4329,10 +4323,10 @@
 }
 
 .el-input.is-disabled .el-input__inner {
-    background-color: rgb(238, 241, 246);
+    /* background-color: rgb(238, 241, 246);
     border-color: rgb(209, 219, 229);
     color: #bbb;
-    cursor: not-allowed;
+    cursor: not-allowed; */
 }
 
 .el-input.is-disabled .el-input__inner:-ms-input-placeholder {
@@ -4674,10 +4668,10 @@
 }
 
 .el-input.is-disabled .el-input__inner {
-    background-color: rgb(238, 241, 246);
+    /* background-color: rgb(238, 241, 246);
     border-color: rgb(209, 219, 229);
     color: #bbb;
-    cursor: not-allowed;
+    cursor: not-allowed; */
 }
 
 .el-input.is-disabled .el-input__inner:-ms-input-placeholder {
@@ -6515,10 +6509,10 @@
 }
 
 .el-input.is-disabled .el-input__inner {
-    background-color: rgb(238, 241, 246);
+    /* background-color: rgb(238, 241, 246);
     border-color: rgb(209, 219, 229);
     color: #bbb;
-    cursor: not-allowed;
+    cursor: not-allowed; */
 }
 
 .el-input.is-disabled .el-input__inner:-ms-input-placeholder {
@@ -11784,10 +11778,10 @@
 }
 
 .el-input.is-disabled .el-input__inner {
-    background-color: rgb(238, 241, 246);
+    /* background-color: rgb(238, 241, 246);
     border-color: rgb(209, 219, 229);
     color: #bbb;
-    cursor: not-allowed;
+    cursor: not-allowed; */
 }
 
 .el-input.is-disabled .el-input__inner:-ms-input-placeholder {
@@ -13924,10 +13918,10 @@
 }
 
 .el-input.is-disabled .el-input__inner {
-    background-color: rgb(238, 241, 246);
+    /* background-color: rgb(238, 241, 246);
     border-color: rgb(209, 219, 229);
     color: #bbb;
-    cursor: not-allowed;
+    cursor: not-allowed; */
 }
 
 .el-input.is-disabled .el-input__inner:-ms-input-placeholder {
@@ -15576,10 +15570,10 @@
 }
 
 .el-input.is-disabled .el-input__inner {
-    background-color: rgb(238, 241, 246);
+    /* background-color: rgb(238, 241, 246);
     border-color: rgb(209, 219, 229);
     color: #bbb;
-    cursor: not-allowed;
+    cursor: not-allowed; */
 }
 
 .el-input.is-disabled .el-input__inner:-ms-input-placeholder {
@@ -16987,7 +16981,7 @@
 
 .el-tree {
     cursor: default;
-    color:#666;
+    color: #666;
 }
 
 .el-tree__empty-block {
@@ -17086,16 +17080,18 @@
     background-color: #e4e4e4;
 }
 
-.el-tree-node__content .btns{
+.el-tree-node__content .btns {
     display: none;
-    float: right; 
+    float: right;
     margin-right: 15px
 }
-.el-tree-node__content .btns .iconfont:hover{
+
+.el-tree-node__content .btns .iconfont:hover {
     color: #008cee;
     font-weight: bold;
 }
-.el-tree--highlight-current .el-tree-node.is-current>.el-tree-node__content .btns{
+
+.el-tree--highlight-current .el-tree-node.is-current>.el-tree-node__content .btns {
     display: inline-block;
 }
 
@@ -17553,10 +17549,10 @@
 }
 
 .el-input.is-disabled .el-input__inner {
-    background-color: rgb(238, 241, 246);
+    /* background-color: rgb(238, 241, 246);
     border-color: rgb(209, 219, 229);
     color: #bbb;
-    cursor: not-allowed;
+    cursor: not-allowed; */
 }
 
 .el-input.is-disabled .el-input__inner:-ms-input-placeholder {
@@ -23761,13 +23757,6 @@
     width: 100%;
 }
 
-.el-input.is-disabled .el-input__inner {
-    background-color: rgb(238, 241, 246);
-    border-color: rgb(209, 219, 229);
-    color: #bbb;
-    cursor: not-allowed;
-}
-
 .el-input.is-disabled .el-input__inner:-ms-input-placeholder {
     color: rgb(191, 203, 217);
 }
@@ -24801,13 +24790,6 @@
     font-size: 14px;
     display: inline-block;
     width: 100%;
-}
-
-.el-input.is-disabled .el-input__inner {
-    background-color: rgb(238, 241, 246);
-    border-color: rgb(209, 219, 229);
-    color: #bbb;
-    cursor: not-allowed;
 }
 
 .el-input.is-disabled .el-input__inner:-ms-input-placeholder {
