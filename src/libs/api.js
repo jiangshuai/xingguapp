@@ -34,7 +34,8 @@ export default {
         'getCustomerInfo': '/api/CustomerList/GetCustomerInfo',
         'getEmpName': '/api/CustomerList/GetEmpNameByEmpId',
         'getCustomerContact': '/api/CustomerList/GetCustomerContacts',
-        'saveContactInfo': '/api/CustomerList/SaveCustomerContacts'
+        'saveContactInfo': '/api/CustomerList/SaveCustomerContacts',
+        'getCustomerInfoByEmail': '/api/CustomerList/GetCustomerInfoByMail'
     },
     'AccountManager': {
         'getAccount': '/accountManager/glAccount',

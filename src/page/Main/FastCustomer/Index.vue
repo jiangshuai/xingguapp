@@ -3,9 +3,22 @@
     <el-dialog title="客户"  :visible.sync="dialogFormVisible"  custom-class="width820" >
             <el-form :model="form">
                 <div class="M_unknown_customer" v-if="form.firstShow">
-                    <p><span class="C6"><em>"{{form.mailDisaplayName}}"</em>&lt;{{form.mailAddress}}&gt;</span><br>是一个陌生客户，<br>抓住机会。<br>立即“新建客户信息” </p>
+                      <p v-if="!canAddNewCustomer">
+                        <span class="C6">
+                          <em>"{{form.mailDisaplayName}}"</em>&lt;{{form.mailAddress}}&gt;
+                        </span><br>是一个陌生客户，<br>抓住机会。<br>立即“新建客户信息”或者 “新增现有客户联系人”
+                      </p>
+
+                      <p v-else> 
+
+                        邮箱地址
+                        <span class="C6">
+                         <em>"{{form.mailAddress}}"</em>&nbsp;
+                        </span> <br>属于 <span class="C6">{{customerbreifname}}</span><br>立即“新增现有客户联系人” 
+                      </p>
+
                     <div class="newButton">
-                        <el-button type="primary" @click="showNewCustomerInputPage()">新增客户信息</el-button>
+                        <el-button type="primary" :disabled="canAddNewCustomer" @click="showNewCustomerInputPage()">新增客户信息</el-button>
                         <el-button type="primary" @click="addExistCustomerContact()">新增现有客户联系人</el-button> 
                     </div>
                 </div>
@@ -13,7 +26,7 @@
                 </div>
             </el-form>
             <fastAddCustomer   v-on:getbackData='getbackData' ref="fastAddCustomer" @closePage="closePage"></fastAddCustomer>
-            <customerinfo      v-on:getbackData='getbackCustomerInfo' ref="customerinfo" @closePage="closePage" ></customerinfo>
+            <customerinfo      v-on:getbackData='getbackCustomerInfo'     ref="customerinfo" @closePage="closePage" ></customerinfo>
                
 
            <div slot="footer" class="dialog-footer" v-if="buttonVisible">
@@ -22,7 +35,7 @@
            </div>
         </el-dialog>
 
-       <customerList   v-on:getCustomer='getCustomer'      ref="customer" @closePage="closePage"></customerList>
+       <customerList   v-on:getCustomer='getCustomer'  v-on:noSelectCustomer='noSelectCustomer'     ref="customer" @closePage="closePage"></customerList>
   </div>
 </template>
 
@@ -50,7 +63,12 @@ export default {
       formLabelWidth: "120px",
       buttonVisible: false,
       buttonText: "显示",
-      empId: "003039"
+      empId: "003039",
+      hasSelect: false,
+      contactInfo: [],
+      customerbreifname: "",
+      customerid: "",
+      canAddNewCustomer: false
     };
   },
   created() {
@@ -70,21 +88,56 @@ export default {
     ) {
       this.form.mailDisaplayName = this.$route.query.displanyName;
     }
+
+    this.getCustomerInfoByEmail(this.form.mailAddress);
   },
   methods: {
-    noSelectCustomer() {
-      this.$refs.customerinfo.isShow = false;
-      alert("no select");
+    getCustomerInfoByEmail(mailaddress) {
+      let _this = this;
+      this.$http
+        .get(
+          _this.Global.baseURL +
+            _this.Global.api.FastAddCustomer.getCustomerInfoByEmail,
+          {
+            params: {
+              mailAddress: mailaddress
+            }
+          }
+        )
+        .then(
+          function(res) {
+            if (res.body != "") {
+              var returndata = JSON.parse(res.body);
+              if (returndata.status != "E" && returndata.status != null) {
+                _this.contactInfo = JSON.parse(returndata.resultString);
+                if (_this.contactInfo.length > 0) {
+                  _this.canAddNewCustomer = true;
+                  _this.customerbreifname = _this.contactInfo[0].BriefName;
+                  _this.customerid = _this.contactInfo[0].FID;
+                  console.log(_this.customerbreifname);
+                }
+              } else {
+                _this.$message({
+                  message: returndata.message,
+                  type: "warning"
+                });
+                return;
+              }
+            } else {
+              this.$message({
+                message: "error！",
+                type: "warning"
+              });
+              return;
+            }
+          },
+          function(res) {
+            //this.$message.error(res.body.msg);
+          }
+        );
     },
-    getbackCustomerInfo(value) {
-      this.$refs.customerinfo.isShow = true;
-    },
-    getbackData(value) {
-      this.$emit("getbackData", this.rocketreach_id);
-    },
-
-    getCustomer(custfid) {
-      if (custfid != 0) {
+    noSelectCustomer(custfid) {
+      if (custfid != 0 && this.hasSelect) {
         this.$refs.customerinfo.detailId = custfid;
         this.$refs.customerinfo.isShow = true;
         this.$refs.customer.DialogSelect.isOpen = false;
@@ -106,6 +159,18 @@ export default {
         this.$refs.customer.DialogSelect.isOpen = false;
       }
     },
+    getbackCustomerInfo(value) {
+      this.$refs.customerinfo.isShow = true;
+    },
+    getbackData(value) {
+      this.$emit("getbackData", this.rocketreach_id);
+    },
+
+    getCustomer(custfid) {
+      if (custfid != 0) {
+        this.hasSelect = true;
+      }
+    },
     hideCreateCustomer() {
       this.$refs.fastAddCustomer.isShow = false;
       this.$refs.fastAddCustomer.empId = this.empId;
@@ -120,13 +185,26 @@ export default {
     },
 
     addExistCustomerContact() {
-      this.form.firstShow = false;
-      this.buttonVisible = false;
-      this.$refs.customer.empId = this.empId;
-      this.$refs.customer.DialogSelect.isOpen = true;
-      this.$refs.customer.tableData = [];
-      this.$refs.customer.radio = false;
-      this.$refs.customer.searchRechargeRecord();
+      if (this.contactInfo.length == 0) {
+        this.form.firstShow = false;
+        this.buttonVisible = false;
+        this.$refs.customer.empId = this.empId;
+        this.$refs.customer.DialogSelect.isOpen = true;
+        this.$refs.customer.CustomerLoading = true;
+        this.$refs.customer.tableData = [];
+        this.$refs.customer.radio = false;
+        this.$refs.customer.searchRechargeRecord();
+      } else {
+        this.$refs.customerinfo.detailId = this.customerid;
+        this.$refs.customerinfo.isShow = true;
+        this.$refs.customer.DialogSelect.isOpen = false;
+        this.form.firstShow = false;
+        this.buttonVisible = true;
+
+        this.$refs.customer.empId = this.empId;
+        this.$refs.customerinfo.empId = this.empId;
+        this.$refs.customerinfo.showCustDialog("", this.form.mailDisaplayName);
+      }
     },
 
     showNewCustomerInputPage() {

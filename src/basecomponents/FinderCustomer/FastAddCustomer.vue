@@ -331,9 +331,8 @@ export default {
       if (isEmpty) {
         return;
       }
-      console.log("save data:");
-      console.log(saveDataList);
 
+      console.log(saveDataList);
 
       this.$http
         .post(
@@ -349,52 +348,9 @@ export default {
                 showClose: true,
                 message: "save success",
                 type: "success",
-                duration: 120000
+                duration:5000
               });
-
-              this.$http
-                .get(
-                  this.Global.baseURL +
-                    this.Global.api.FastAddCustomer.hasCreateCustomer,
-                  {
-                    params: {
-                      id: this.rocketreach_id
-                    }
-                  }
-                )
-                .then(
-                  function(res) {
-                    if (res.body!= "") {
-
-                      console.log(res.body);
-                      var returndata = JSON.parse(res.body);
-                      if (
-                        returndata.status != "E" &&
-                        returndata.status != null
-                      ) {
-                        this.$emit("getbackData", this.rocketreach_id); 
-                        this.$emit("closePage"); //关闭页面
-                      } else {
-                        this.$message({
-                          message: returndata.message,
-                          type: "warning"
-                        });
-
-                        this.$emit("closePage"); //关闭页面
-                      }
-                    } else {
-                      this.$message({
-                        message: "api异常",
-                        type: "warning"
-                      });
-
-                      this.$emit("closePage"); //关闭页面
-                    }
-                  },
-                  function(res) {
-               
-                  }
-                );
+               this.$emit("closePage"); //关闭页面
             } else if (
               result.status != null &&
               result.status == "E" &&
@@ -404,7 +360,7 @@ export default {
                 showClose: true,
                 message: result.message,
                 type: "error",
-                duration: 120000
+                duration: 5000
               });
             }
           },
@@ -531,6 +487,10 @@ export default {
                     this.showFieldListOne.push(groupTemp);
                   }
                 }
+
+
+ debugger;
+
                 //客户联系人
                 var tempTwo = this.showFieldListTwo;
                 this.showFieldListTwo = [];
