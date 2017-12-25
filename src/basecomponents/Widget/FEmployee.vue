@@ -2,15 +2,15 @@
   <div style="float:right">
     <el-input placeholder="请选择人员" value="saveValue" :disabled="true" v-model="showValue" icon="menu"  style="width:168px;"  :on-icon-click="showCityPage" class="pull-right f-width">
     </el-input>
-    <el-dialog title="提示" :visible.sync="dialogVisible" size="tiny" :before-close="handleClose" :modal="false">
+    <el-dialog title="人员选择" :visible.sync="dialogVisible"  :before-close="handleClose" :modal="false">
       <el-input placeholder="输入关键字进行过滤" v-model="filterText">
       </el-input>
       <el-tree :data="employeeList" ref="employTree" :props="defaultProps" :highlight-current="true" :filter-node-method="filterNode" @node-click="handleNodeClick">>
       </el-tree>
-      <span slot="footer" class="dialog-footer">
-                <el-button @click="dialogVisible = false">取 消</el-button>
-                <el-button type="primary" @click="sureSelect()">确 定</el-button>
-              </span>
+       <span slot="footer" class="dialog-footer">
+          <el-button @click="dialogVisible = false">取 消</el-button>
+          <el-button type="primary" @click="sureSelect()">确 定</el-button>
+       </span>
     </el-dialog>
   </div>
 </template>

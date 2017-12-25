@@ -21,21 +21,14 @@ import DownloadRecord from '@/page/Main/FumaSo/DownloadRecord/Index'
 
 import AccountView from '@/page/Main/AccountManager/AccountView/Index'
 import Recharge from '@/page/Main/AccountManager/AccountView/Recharge/Index'
-
 import ConsumerDetail from '@/page/Main/AccountManager/ConsumerDetail/Index'
 import RechargeRecord from '@/page/Main/AccountManager/RechargeRecord/Index'
 import InvoiceManage from '@/page/Main/AccountManager/InvoiceManage/Index'
 import InvoiceSet from '@/page/Main/AccountManager/InvoiceSet/Index'
 
-
-
-
 import FastCustomer from '@/page/Main/FastCustomer/Index'
 import CustomerList from '@/page/Main/CustomerList/Index'
-
-
 // import FastAddCustomer from '@/basecomponents/FinderCustomer/FastAddCustomer'
-
 
 
 import store from '@/vuex/store'
@@ -197,14 +190,10 @@ router.beforeEach((to, from, next) => {
 function isEmptyObject(obj) {
     if (obj.empId == null || obj.empId == '' ||
         obj.companyId == null || obj.companyId == '') {
-
         if (obj.empId == null || obj.empId == '' ||
             obj.companyId == null || obj.companyId == '') {
-
-            console.log("emp:" + obj.empId);
             return true;
         }
-
         return false;
     }
 }
