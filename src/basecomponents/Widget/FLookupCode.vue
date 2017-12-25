@@ -8,18 +8,16 @@
           <el-button slot="append" @click="filterData()" icon="search"></el-button>
         </el-input>
       </div>
-     
-        <el-table class="noHeader" ref="singleTable" height="500" :data="gridData" highlight-current-row @current-change="handleCurrentChange" style="width: 100%;">     
+      <el-table class="noHeader" ref="singleTable" height="500" :data="gridData" highlight-current-row @current-change="handleCurrentChange" style="width: 100%;">     
         <el-table-column :property="displayField"></el-table-column>
       </el-table>
-      <div style="margin-top: 20px">
+       <div style="margin-top: 20px">
         <el-button type="primary" @click="selectValue()">确定</el-button>
         <el-button @click="dialogVisible = false">取消</el-button>
       </div>
     </el-dialog>
   </div>
 </template>
-
 <script>
 export default {
   name: "FLookupCode",
@@ -81,7 +79,7 @@ export default {
                 this.valueField = result.resultString2;
                 this.gridData = new Array();
                 this.gridData = result.DataList;
-                // console.log( Object.keys(this.gridData[0]));
+                // console.log(Object.keys(this.gridData[0]));
               }
               this.dialogVisible = true;
               // return result.DataList;
