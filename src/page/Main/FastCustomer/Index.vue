@@ -54,8 +54,8 @@ export default {
       labelPosition: "left",
       rocketreach_id: 0,
       form: {
-        mailDisaplayName: "王莉莉",
-        mailAddress: "zhangsanfen126@126.com",
+        mailDisaplayName: "",
+        mailAddress: "",
         firstShow: true,
         newCustShow: false,
         newSupplierShow: false,
@@ -70,7 +70,7 @@ export default {
       customerbreifname: "",
       customerid: "",
       canAddNewCustomer: false,
-      companyId: "fuma",
+      companyId: "",
       localUrlString: "",
       errormessage: ""
     };
