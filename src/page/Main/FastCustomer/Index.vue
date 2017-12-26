@@ -102,9 +102,6 @@ export default {
 
     //获取接口API地址
     this.getCusturlApi();
-
-    //通过邮箱地址判断客户信息是否已经存在
-    this.getCustomerInfoByEmail(this.form.mailAddress);
   },
   methods: {
     getCusturlApi() {
@@ -129,6 +126,9 @@ export default {
                   expires: 2,
                   path: "/"
                 });
+
+                //通过邮箱地址判断客户信息是否已经存在
+                this.getCustomerInfoByEmail(this.form.mailAddress);
               } else {
                 this.errormessage = returndata.message;
                 this.$message({
@@ -163,7 +163,7 @@ export default {
 
     getCustomerInfoByEmail(mailaddress) {
       let _this = this;
-      if (_this.localUrlString == "") {
+      if (_this.localUrlString == "" || _this.localUrlString == undefined) {
         _this.localUrlString = getCookie("apiUrlString");
       }
       this.$http
@@ -214,6 +214,7 @@ export default {
         this.$refs.customer.DialogSelect.isOpen = false;
         this.form.firstShow = false;
         this.buttonVisible = true;
+        this.$refs.customerinfo.localUrlString = this.localUrlString;
 
         this.$refs.customer.empId = this.empId;
         this.$refs.customerinfo.empId = this.empId;
@@ -227,6 +228,7 @@ export default {
         this.buttonVisible = false;
         this.$refs.customer.empId = this.empId;
         this.$refs.customerinfo.empId = this.empId;
+        this.$refs.customerinfo.localUrlString = this.localUrlString;
         this.$refs.customer.DialogSelect.isOpen = false;
       }
     },
@@ -246,6 +248,7 @@ export default {
       this.$refs.fastAddCustomer.isShow = false;
       this.$refs.fastAddCustomer.empId = this.empId;
       this.$refs.fastAddCustomer.rocketreach_id = this.rocketreach_id;
+      this.$refs.fastAddCustomer.localUrlString = this.localUrlString;
       this.$refs.fastAddCustomer.showCustDialog(
         this.form.mailAddress,
         this.form.mailDisaplayName
@@ -272,6 +275,7 @@ export default {
         this.$refs.customer.CustomerLoading = true;
         this.$refs.customer.tableData = [];
         this.$refs.customer.radio = false;
+        this.$refs.customer.localUrlString = this.localUrlString;
         this.$refs.customer.searchRechargeRecord();
       } else {
         this.$refs.customerinfo.detailId = this.customerid;
@@ -279,7 +283,7 @@ export default {
         this.$refs.customer.DialogSelect.isOpen = false;
         this.form.firstShow = false;
         this.buttonVisible = true;
-
+        this.$refs.customer.localUrlString = this.localUrlString;
         this.$refs.customer.empId = this.empId;
         this.$refs.customerinfo.empId = this.empId;
         this.$refs.customerinfo.showCustDialog("", this.form.mailDisaplayName);
@@ -300,6 +304,8 @@ export default {
       this.$refs.fastAddCustomer.isShow = true;
       this.$refs.fastAddCustomer.empId = this.empId;
       this.$refs.fastAddCustomer.rocketreach_id = this.rocketreach_id;
+      this.$refs.fastAddCustomer.localUrlString = this.localUrlString;
+
       this.$refs.fastAddCustomer.showCustDialog(
         this.form.mailAddress,
         this.form.mailDisaplayName
