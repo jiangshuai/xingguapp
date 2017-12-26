@@ -43,6 +43,7 @@
 import FastAddCustomer from "@/basecomponents/FinderCustomer/FastAddCustomer";
 import CustomerList from "@/page/Main/CustomerList/Index";
 import CustomerInfo from "@/page/Main/CustomerList/CustomerInfo";
+import { getCookie, setCookie } from "@/libs/utils.js";
 
 export default {
   name: "FastCustomer",
@@ -63,12 +64,15 @@ export default {
       formLabelWidth: "120px",
       buttonVisible: false,
       buttonText: "显示",
-      empId: "003039",
+      empId: "admin",
       hasSelect: false,
       contactInfo: [],
       customerbreifname: "",
       customerid: "",
-      canAddNewCustomer: false
+      canAddNewCustomer: false,
+      companyId: "fuma",
+      localUrlString: "",
+      errormessage: ""
     };
   },
   created() {
@@ -88,15 +92,83 @@ export default {
     ) {
       this.form.mailDisaplayName = this.$route.query.displanyName;
     }
+
+    if (
+      this.$route.query.companyId != null &&
+      this.$route.query.companyId != ""
+    ) {
+      this.companyId = this.$route.query.companyId;
+    }
+
+    //获取接口API地址
+    this.getCusturlApi();
+
     //通过邮箱地址判断客户信息是否已经存在
     this.getCustomerInfoByEmail(this.form.mailAddress);
   },
   methods: {
-    getCustomerInfoByEmail(mailaddress) {
-      let _this = this;
+    getCusturlApi() {
       this.$http
         .get(
-          _this.Global.baseURL +
+          this.Global.baseURL + this.Global.api.FastAddCustomer.getCusturlApi,
+          {
+            params: {
+              companyId: this.companyId
+            }
+          }
+        )
+        .then(
+          function(res) {
+            console.log(res);
+            if (res.body != "") {
+              var returndata = JSON.parse(res.body);
+              if (returndata.status != "E" && returndata.status != null) {
+                this.localUrlString = returndata.entity.custurl;
+                console.log(this.localUrlString);
+                setCookie("apiUrlString", this.localUrlString, {
+                  expires: 2,
+                  path: "/"
+                });
+              } else {
+                this.errormessage = returndata.message;
+                this.$message({
+                  message: this.errormessage,
+                  type: "warning"
+                });
+                return;
+              }
+            } else {
+              this.errormessage = "无法获取 Fumasoft API URL！";
+              this.$message({
+                message: this.errormessage,
+                type: "warning"
+              });
+              return;
+            }
+          },
+          function(res) {
+            this.$message.error(res.body.msg);
+          }
+        )
+        .catch(res => {
+          console.log("err: ", res);
+          this.errormessage = "获取Fumasoft API URL 异常！";
+          this.$message({
+            message: this.errormessage,
+            type: "warning"
+          });
+          return;
+        });
+    },
+
+    getCustomerInfoByEmail(mailaddress) {
+      let _this = this;
+      if (_this.localUrlString == "") {
+        _this.localUrlString = getCookie("apiUrlString");
+      }
+      this.$http
+        .get(
+          _this.localUrlString +
             _this.Global.api.FastAddCustomer.getCustomerInfoByEmail,
           {
             params: {
@@ -184,6 +256,14 @@ export default {
     },
 
     addExistCustomerContact() {
+      if (this.errormessage != "") {
+        this.$message({
+          message: this.errormessage,
+          type: "warning"
+        });
+        return;
+      }
+
       if (this.contactInfo.length == 0) {
         this.form.firstShow = false;
         this.buttonVisible = false;
@@ -207,6 +287,14 @@ export default {
     },
 
     showNewCustomerInputPage() {
+      if (this.errormessage != "") {
+        this.$message({
+          message: this.errormessage,
+          type: "warning"
+        });
+        return;
+      }
+
       this.form.firstShow = false;
       this.buttonVisible = true;
       this.$refs.fastAddCustomer.isShow = true;

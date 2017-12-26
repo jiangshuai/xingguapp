@@ -39,6 +39,7 @@
 </template>
 
 <script>
+import { getCookie, setCookie } from "@/libs/utils.js";
 export default {
   name: "customerList",
   props: [],
@@ -58,24 +59,25 @@ export default {
       isOpen: false,
       custid: 0,
       CustomerLoading: true,
-      empId: ""
+      empId: "",
+      localUrlString: ""
     };
   },
   created() {
+    let _this = this;
+    _this.localUrlString = getCookie("apiUrlString");
     //this.searchRechargeRecord();
   },
   mounted() {},
   computed: {},
   methods: {
-  
     getCurrentRow(custid) {
       this.custid = custid;
     },
 
-    colseWindow()
-    {
-         this.DialogSelect.isOpen = false;
-         this.$emit("noSelectCustomer",this.custid);
+    colseWindow() {
+      this.DialogSelect.isOpen = false;
+      this.$emit("noSelectCustomer", this.custid);
     },
 
     confirmCustomer() {
@@ -98,7 +100,7 @@ export default {
 
     searchRechargeRecord() {
       var url =
-        this.Global.baseURL + this.Global.api.FastAddCustomer.GetCustomer;
+        this.localUrlString + this.Global.api.FastAddCustomer.GetCustomer;
       this.$http
         .get(url, {
           params: {

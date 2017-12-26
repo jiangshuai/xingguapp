@@ -116,6 +116,7 @@ import FDorpdownList from "@/basecomponents/Widget/FDorpdownList";
 import FEmployee from "@/basecomponents/Widget/FEmployee";
 import FLookupCode from "@/basecomponents/Widget/FLookupCode";
 import FRegion from "@/basecomponents/Widget/FRegion";
+import { getCookie, setCookie } from "@/libs/utils.js";
 export default {
   name: "FastAddCustomer",
   props: [],
@@ -140,7 +141,7 @@ export default {
   },
   created() {
     let _this = this;
-    _this.localUrlString=  this.Global.baseURL;
+    _this.localUrlString= getCookie("apiUrlString");
   },
   methods: {
    getbackData()

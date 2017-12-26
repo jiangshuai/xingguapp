@@ -20,6 +20,7 @@ export default {
     'Account': {
         'getUrl': '/account/getCustUrl',
         'modifyApiUrl': '/account'
+
     },
     'FastAddCustomer': {
         'getFieldList': '/api/GetMouldFieldList',
@@ -35,7 +36,8 @@ export default {
         'getEmpName': '/api/CustomerList/GetEmpNameByEmpId',
         'getCustomerContact': '/api/CustomerList/GetCustomerContacts',
         'saveContactInfo': '/api/CustomerList/SaveCustomerContacts',
-        'getCustomerInfoByEmail': '/api/CustomerList/GetCustomerInfoByMail'
+        'getCustomerInfoByEmail': '/api/CustomerList/GetCustomerInfoByMail',
+        'getCusturlApi': '/company/GetMXCompany'
     },
     'AccountManager': {
         'getAccount': '/accountManager/glAccount',
