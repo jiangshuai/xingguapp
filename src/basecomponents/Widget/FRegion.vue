@@ -1,14 +1,14 @@
 <template>
   <div style="float:right">
-    <el-input placeholder="请选择地区" value="saveValue" :disabled="true" v-model="inputValue" icon="menu" style="width:188px;" :on-icon-click="showCityPage" class="pull-right f-width">
+    <el-input placeholder="请选择地区" value="saveValue" :disabled="true" v-model="inputValue" icon="menu" style="width:168px;" :on-icon-click="showCityPage" class="pull-right f-width">
     </el-input>
-    <el-dialog title="提示" :visible.sync="dialogVisible" size="tiny" :before-close="handleClose" :modal="false">
+    <el-dialog title="地区选择" :visible.sync="dialogVisible"  :before-close="handleClose" :modal="false">
       <el-tree :data="cityList" :props="defaultProps" :highlight-current="true" accordion @node-click="handleNodeClick">>
       </el-tree>
       <span slot="footer" class="dialog-footer">
-                          <el-button @click="dialogVisible = false">取 消</el-button>
-                          <el-button type="primary" @click="sureSelect()">确 定</el-button>
-                        </span>
+          <el-button @click="dialogVisible = false">取 消</el-button>
+          <el-button type="primary" @click="sureSelect()">确 定</el-button>
+      </span>
     </el-dialog>
   </div>
 </template>

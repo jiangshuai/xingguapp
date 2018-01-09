@@ -5,12 +5,13 @@ let _domain = '';
 let _uploadUrl = '';
 
 if (process.env.NODE_ENV == 'development') {
-    _domain =    'https://napi.laifuyun.com/';// '/'; //http://localhost:8080
-    _uploadUrl = 'https://cs.updates.xin/v1/uploadTest';
+    //_domain = 'http://localhost:21197'; 
+    _domain = 'https://napi.laifuyun.com/'; // '/'; 
+    //_uploadUrl = 'https://cs.updates.xin/v1/uploadTest';
 } else if (process.env.NODE_ENV == 'production') {
-    _domain = 'https://napi.laifuyun.com/'; //http://localhost:9001
-    //_domain = 'https://mx.laifuyun.com/';
-    _uploadUrl = 'https://cs.updates.xin/v1/uploadTest';
+    _domain = 'https://napi.laifuyun.com/';
+    //_domain = 'https://dingc25705ca80dcdc3f6678.fumasoft.com';
+    //_uploadUrl = 'https://cs.updates.xin/v1/uploadTest';
 }
 
 /**
@@ -22,7 +23,7 @@ export const domain = _domain
  * 接口请求地址
  */
 export const baseURL = domain + 'api/v1'
- 
+
 /**
  * 图片展示url前缀
  */
