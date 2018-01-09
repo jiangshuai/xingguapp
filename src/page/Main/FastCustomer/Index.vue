@@ -64,7 +64,8 @@ export default {
       formLabelWidth: "120px",
       buttonVisible: false,
       buttonText: "显示",
-      empId: "admin",
+      empId: "",
+      username: "",
       hasSelect: false,
       contactInfo: [],
       customerbreifname: "",
@@ -77,7 +78,7 @@ export default {
   },
   created() {
     if (this.$route.query.empId != null && this.$route.query.empId != "") {
-      this.empId = this.$route.query.empId;
+      this.username = this.$route.query.empId;
     }
     if (
       this.$route.query.mailAddress != null &&
@@ -126,7 +127,8 @@ export default {
                   expires: 2,
                   path: "/"
                 });
-
+                //获取M8中的empID
+                this.getEmpIdByUsername();
                 //通过邮箱地址判断客户信息是否已经存在
                 this.getCustomerInfoByEmail(this.form.mailAddress);
               } else {
@@ -159,6 +161,51 @@ export default {
           });
           return;
         });
+    },
+
+    getEmpIdByUsername() {
+      let _this = this;
+      if (_this.localUrlString == "" || _this.localUrlString == undefined) {
+        _this.localUrlString = getCookie("apiUrlString");
+      }
+      this.$http
+        .get(
+          _this.localUrlString +
+            _this.Global.api.FastAddCustomer.getEmpIdByUsername,
+          {
+            params: {
+              username: this.username
+            }
+          }
+        )
+        .then(
+          function(res) {
+            if (res.body != "") {
+              var returndata = JSON.parse(res.body);
+              if (returndata.status != "E" && returndata.status != null) {
+                var data = JSON.parse(returndata.resultString);
+                if (data.length > 0) {
+                  this.empId = data[0].OwerID;
+                }
+              } else {
+                _this.$message({
+                  message: returndata.message,
+                  type: "warning"
+                });
+                return;
+              }
+            } else {
+              this.$message({
+                message: "error！",
+                type: "warning"
+              });
+              return;
+            }
+          },
+          function(res) {
+            //this.$message.error(res.body.msg);
+          }
+        );
     },
 
     getCustomerInfoByEmail(mailaddress) {

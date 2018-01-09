@@ -37,6 +37,7 @@ export default {
         'getCustomerContact': '/api/CustomerList/GetCustomerContacts',
         'saveContactInfo': '/api/CustomerList/SaveCustomerContacts',
         'getCustomerInfoByEmail': '/api/CustomerList/GetCustomerInfoByMail',
+        'getEmpIdByUsername': '/api/CustomerList/GetOwnerIdByUsername',
         'getCusturlApi': '/company/GetMXCompany'
     },
     'AccountManager': {

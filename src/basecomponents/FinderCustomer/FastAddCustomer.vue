@@ -290,7 +290,6 @@ export default {
       }
     },
     saveData() {
-
       var saveDataList = new Array();
       this.showFieldListOne.forEach(function(element) {
         element.forEach(function(subElement) {
@@ -330,9 +329,7 @@ export default {
       if (isEmpty) {
         return;
       }
-
-      console.log(saveDataList);
-
+      //console.log(saveDataList);
       this.$http
         .post(
           this.localUrlString +
@@ -457,10 +454,6 @@ export default {
                     element.inputValue = "";
                   }
 
-              
-
-                 
-
                   if (
                     element.IsShow &&
                     element.ControlType != null &&
@@ -477,9 +470,6 @@ export default {
                     this.hideFieldList.push(element);
                   }
                 }, this);
-
-
-               debugger;
 
                 //客户信息
                 var tempOne = this.showFieldListOne;
